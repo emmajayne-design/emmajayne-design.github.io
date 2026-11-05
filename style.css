@@ -91,16 +91,108 @@ body {
   font-size: 11px;
 }
 
-.gallery-placeholder {
-  height: 300px;
+/* PROJECT GALLERY */
+
+.project-gallery {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  min-height: 460px;
+
+  overflow: hidden;
+}
+
+
+/* EACH PROJECT HAS A FIXED SLOT */
+
+.project {
+  position: relative;
+
+  flex: 1 1 0;
+  height: 410px;
 
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  border: 1px solid #ccc;
+  min-width: 0;
+}
 
-  font-size: 12px;
+
+/* NUMBER */
+
+.project-number {
+  width: 200px;
+
+  margin-bottom: 8px;
+
+  font-size: 11px;
+
+  opacity: 0;
+  visibility: hidden;
+}
+
+
+/* IMAGE */
+
+.project img {
+  display: block;
+
+  width: 135px;
+  height: 190px;
+
+  object-fit: cover;
+
+  transition:
+    width 300ms ease,
+    height 300ms ease;
+}
+
+
+/* TEXT */
+
+.project-info {
+  width: 200px;
+
+  margin-top: 8px;
+
+  font-size: 11px;
+  line-height: 1.2;
+
+  opacity: 0;
+  visibility: hidden;
+}
+
+
+/* HOVER */
+
+.project:hover img {
+  width: 200px;
+  height: 280px;
+}
+
+.project:hover .project-number,
+.project:hover .project-info {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/* + BUTTON */
+
+.view-all {
+  flex: 0 0 60px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: inherit;
+  text-decoration: none;
+
+  font-size: 28px;
 }
 
 
@@ -130,3 +222,69 @@ body {
   }
 
 }
+
+
+/* MOBILE BIT */
+
+  .project-gallery {
+    display: block;
+
+    min-height: 0;
+
+    overflow: visible;
+  }
+
+
+  .project {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    margin-bottom: 60px;
+  }
+
+
+  /* no index on mobile */
+
+  .project-number {
+    display: none;
+  }
+
+
+  /* images already appear in the large state */
+
+  .project img,
+  .project:hover img {
+    width: 100%;
+    height: auto;
+
+    object-fit: contain;
+
+    transition: none;
+  }
+
+
+  /* project text always visible */
+
+  .project-info {
+    width: 100%;
+
+    margin-top: 10px;
+
+    opacity: 1;
+    visibility: visible;
+  }
+
+
+  /* + at bottom */
+
+  .view-all {
+    width: 100%;
+
+    justify-content: flex-start;
+
+    padding-bottom: 60px;
+
+    font-size: 28px;
+  }
