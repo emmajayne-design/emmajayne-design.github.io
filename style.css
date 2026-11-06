@@ -14,10 +14,17 @@ body {
   margin: 0;
   overflow-x: hidden;
 
-  background: #f7f7f5;
-  color: #111;
+  background: #ffffff;
+  color: #626262;
 
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:
+    "Courier New",
+    Courier,
+    monospace;
+}
+
+a {
+  color: inherit;
 }
 
 
@@ -34,276 +41,426 @@ body {
   width: 100%;
 
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
+  justify-content: space-between;
 
-  padding: 22px 28px;
+  padding: 24px 3.5vw;
 }
 
-.site-name {
-  color: inherit;
-  text-decoration: none;
-
-  font-size: 11px;
-  line-height: 1.2;
-}
-
-.nav {
+.identity {
   display: flex;
-  gap: 70px;
+  align-items: center;
+  gap: 14px;
+
+  text-decoration: none;
 }
 
-.nav a {
-  color: inherit;
-  text-decoration: none;
+.identity-mark {
+  display: block;
 
-  font-size: 11px;
+  width: 40px;
+  height: 40px;
+
+  flex: 0 0 40px;
+
+  border-radius: 50%;
+
+  background: #686868;
+}
+
+.identity-text {
+  display: flex;
+  flex-direction: column;
+
+  font-size: 14px;
+  line-height: 1.08;
+}
+
+.identity-text strong {
+  font-weight: 700;
+}
+
+.identity-text span {
+  font-weight: 400;
+}
+
+.site-navigation {
+  display: flex;
+  gap: clamp(48px, 7vw, 140px);
+
+  padding-top: 5px;
+}
+
+.site-navigation a {
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.site-navigation a:hover {
+  color: #111111;
 }
 
 
 /* =========================
-   WORK
+   FEATURED SECTION
    ========================= */
 
-.work {
+.featured-section {
   min-height: 100vh;
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
 
-  padding: 90px 28px 28px;
+  padding: 120px 0 5vh;
 }
 
-.section-label {
-  margin: 0 0 12px;
+.section-title {
+  margin: 0 3.5vw 18px;
 
-  font-size: 11px;
-  font-weight: 400;
+  color: #5e5e5e;
+
+  font-size: clamp(17px, 1.35vw, 24px);
+  font-weight: 700;
+  line-height: 1;
 }
 
 
 /* =========================
-   FULL WIDTH GALLERY
+   CAROUSEL
    ========================= */
 
-.project-gallery {
+.carousel {
+  position: relative;
+
   width: 100%;
-  height: 500px;
+  height: min(47vw, 520px);
+
+  min-height: 390px;
+}
+
+.carousel-viewport {
+  position: absolute;
+  inset: 0;
+
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+
+  width: 200%;
+  height: 100%;
+
+  transform: translateX(0);
+
+  transition:
+    transform 420ms
+    cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.carousel.is-page-two .carousel-track {
+  transform: translateX(-50%);
+}
+
+.carousel-page {
+  width: 50%;
+  height: 100%;
+
+  flex: 0 0 50%;
 
   display: grid;
 
   grid-template-columns:
-    repeat(6, minmax(0, 1fr))
-    42px;
+    repeat(6, minmax(0, 1fr));
 
-  align-items: center;
+  gap: clamp(10px, 1vw, 22px);
+
+  padding:
+    0
+    clamp(54px, 4vw, 82px)
+    0
+    3.5vw;
 }
 
 
 /* =========================
-   PROJECT
+   PROJECT CARD
    ========================= */
 
-.project {
+.project-card {
+  display: block;
+
+  min-width: 0;
+
+  text-decoration: none;
+}
+
+
+/*
+   This is the fixed invisible frame.
+
+   The number, maximum-size image,
+   title and metadata all align to it.
+*/
+
+.project-frame {
   position: relative;
 
   width: 100%;
-  height: 450px;
+  height: 100%;
+
   min-width: 0;
+}
+
+
+/* =========================
+   MAXIMUM IMAGE FRAME
+   ========================= */
+
+.project-image-frame {
+  position: absolute;
+
+  left: 0;
+  top: 30px;
+
+  width: 100%;
+  height: calc(100% - 92px);
 
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 
-/* =========================
-   INDEX
+/*
+   Resting artwork is 91% of the
+   maximum frame size.
 
-   This is sized to the
-   MAXIMUM hover width.
-   ========================= */
+   Hover expands it to 100%.
+*/
 
-.project-number {
-  width: 94.6%;
-  max-width: 253px;
-  height: 18px;
-
-  margin: 0 auto 18px;
-
-  font-size: 10px;
-  line-height: 1;
-  letter-spacing: 0.02em;
-
-  text-align: left;
-
-  opacity: 0;
-  visibility: hidden;
-}
-
-
-/* =========================
-   IMAGE
-
-   Resting width = 86%
-   Hover = 10% scale
-   86 × 1.1 = 94.6%
-   ========================= */
-
-.project img {
+.project-image-frame img {
   display: block;
 
-  width: 86%;
-  max-width: 230px;
-
-  height: auto;
-  aspect-ratio: 5 / 7;
-
-  margin: 0 auto;
+  width: 91%;
+  height: 91%;
 
   object-fit: cover;
 
   transform: scale(1);
-  transform-origin: center center;
 
-  transition: transform 180ms ease;
+  transition:
+    width 180ms ease,
+    height 180ms ease;
+}
+
+.project-card:hover .project-image-frame img,
+.project-card:focus-visible .project-image-frame img {
+  width: 100%;
+  height: 100%;
 }
 
 
 /* =========================
-   PROJECT INFO
-
-   Also pinned to the maximum
-   hover-image width.
+   PROJECT NUMBER
    ========================= */
 
-.project-info {
-  width: 94.6%;
-  max-width: 253px;
-  min-height: 32px;
+.project-number {
+  position: absolute;
 
-  margin: 18px auto 0;
+  top: 5px;
+  left: 0;
 
-  font-size: 10px;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
+  width: 100%;
 
-  text-align: left;
+  color: #707070;
+
+  font-size: clamp(11px, 0.9vw, 15px);
+  line-height: 1;
 
   opacity: 0;
   visibility: hidden;
+
+  transition: opacity 100ms linear;
 }
 
 
 /* =========================
-   DESKTOP HOVER
+   PROJECT INFORMATION
    ========================= */
 
-.project:hover {
-  z-index: 2;
+.project-info {
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: opacity 100ms linear;
 }
 
-.project:hover img {
-  transform: scale(1.1);
+.project-info strong {
+  color: #5c5c5c;
+
+  font-size: clamp(11px, 0.94vw, 16px);
+  font-weight: 700;
+  line-height: 1.05;
 }
 
-.project:hover .project-number,
-.project:hover .project-info {
+.project-info span {
+  margin-top: 2px;
+
+  color: #777777;
+
+  font-size: clamp(10px, 0.88vw, 15px);
+  line-height: 1.05;
+}
+
+.project-card:hover .project-number,
+.project-card:hover .project-info,
+.project-card:focus-visible .project-number,
+.project-card:focus-visible .project-info {
   opacity: 1;
   visibility: visible;
 }
 
 
 /* =========================
-   VIEW ALL +
+   GHOST NAVIGATION CARDS
    ========================= */
 
-.view-all {
-  width: 42px;
-  height: 450px;
+.carousel-control {
+  position: absolute;
+  z-index: 20;
+
+  top: 30px;
+  bottom: 62px;
+
+  width: clamp(46px, 3vw, 66px);
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  cursor: pointer;
+}
+
+.carousel-control-previous {
+  left: 0;
+
+  display: none;
+}
+
+.carousel-control-next {
+  right: 0;
+
+  display: block;
+}
+
+.carousel.is-page-two .carousel-control-previous {
+  display: block;
+}
+
+.carousel.is-page-two .carousel-control-next {
+  display: none;
+}
+
+
+/*
+   Only the card background is faded.
+   The arrow remains full opacity.
+*/
+
+.ghost-card {
+  position: absolute;
+  inset: 0;
+
+  background: #696969;
+
+  opacity: 0.5;
+}
+
+.carousel-arrow {
+  position: absolute;
+  inset: 0;
 
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
 
-  color: inherit;
-  text-decoration: none;
+  color: #080808;
 
-  font-size: 20px;
-  font-weight: 300;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: clamp(24px, 2vw, 36px);
+  font-weight: 700;
+
+  opacity: 1;
+}
+
+.carousel-control:hover .ghost-card {
+  opacity: 0.62;
+}
+
+.carousel-control:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: -4px;
 }
 
 
-/* ==================================================
-   MEDIUM DESKTOP
-   1150px - 1399px
-   5 PROJECTS
-   ================================================== */
+/* =========================
+   REDUCED MOTION
+   ========================= */
 
-@media (min-width: 1150px) and (max-width: 1399px) {
+@media (prefers-reduced-motion: reduce) {
 
-  .project-gallery {
-    grid-template-columns:
-      repeat(5, minmax(0, 1fr))
-      42px;
-  }
-
-  .project-6 {
-    display: none;
-  }
-
-  .project img {
-    width: 84%;
-    max-width: 210px;
-  }
-
-  /*
-    84 × 1.1 = 92.4%
-  */
-
-  .project-number,
-  .project-info {
-    width: 92.4%;
-    max-width: 231px;
+  .carousel-track,
+  .project-image-frame img {
+    transition: none;
   }
 
 }
 
 
 /* ==================================================
-   SMALL DESKTOP
-   901px - 1149px
-   4 PROJECTS
+   SMALLER DESKTOP
+   KEEP 6 CARDS, REDUCE HEIGHT
    ================================================== */
 
-@media (min-width: 901px) and (max-width: 1149px) {
+@media (min-width: 901px) and (max-width: 1199px) {
 
-  .project-gallery {
-    grid-template-columns:
-      repeat(4, minmax(0, 1fr))
-      42px;
+  .carousel {
+    height: 410px;
+    min-height: 410px;
   }
 
-  .project-5,
-  .project-6 {
-    display: none;
+  .carousel-page {
+    gap: 10px;
+
+    padding-left: 24px;
+    padding-right: 54px;
   }
 
-  .project img {
-    width: 82%;
-    max-width: 195px;
+  .section-title {
+    margin-left: 24px;
   }
 
-  /*
-    82 × 1.1 = 90.2%
-  */
-
-  .project-number,
-  .project-info {
-    width: 90.2%;
-    max-width: 215px;
+  .site-header {
+    padding-left: 24px;
+    padding-right: 24px;
   }
 
 }
@@ -320,123 +477,159 @@ body {
 
   .site-header {
     position: relative;
+
     padding: 18px;
+
+    flex-direction: column;
+    gap: 22px;
   }
 
-  .nav {
-    gap: 16px;
+  .identity-mark {
+    width: 34px;
+    height: 34px;
+
+    flex-basis: 34px;
+  }
+
+  .identity-text {
+    font-size: 12px;
+  }
+
+  .site-navigation {
+    width: 100%;
+
+    justify-content: space-between;
+
+    gap: 10px;
+    padding-top: 0;
+  }
+
+  .site-navigation a {
+    font-size: 12px;
   }
 
 
-  /* WORK */
+  /* SECTION */
 
-  .work {
+  .featured-section {
     min-height: 0;
 
     display: block;
 
-    padding: 80px 18px 18px;
+    padding: 90px 18px 30px;
   }
 
-  .section-label {
-    margin-bottom: 45px;
+  .section-title {
+    margin: 0 0 34px;
+
+    font-size: 18px;
   }
 
 
-  /* VERTICAL GALLERY */
+  /* REMOVE CAROUSEL */
 
-  .project-gallery {
+  .carousel {
+    height: auto;
+    min-height: 0;
+  }
+
+  .carousel-viewport {
+    position: relative;
+    overflow: visible;
+  }
+
+  .carousel-track,
+  .carousel.is-page-two .carousel-track {
     display: block;
 
     width: 100%;
     height: auto;
+
+    transform: none;
+    transition: none;
   }
 
-
-  /* ALL PROJECTS */
-
-  .project,
-  .project-5,
-  .project-6 {
-    display: block !important;
+  .carousel-page {
+    display: block;
 
     width: 100%;
     height: auto;
 
-    margin: 0 0 60px;
+    padding: 0;
   }
 
 
-  /* NO INDEX */
+  /* VERTICAL PROJECT LIST */
 
-  .project-number,
-  .project:hover .project-number {
-    display: none !important;
-
-    opacity: 0 !important;
-    visibility: hidden !important;
-  }
-
-
-  /* STATIC FULL-WIDTH IMAGE */
-
-  .project img,
-  .project:hover img {
+  .project-card {
     display: block;
 
-    width: 100% !important;
-    max-width: none !important;
+    width: 100%;
 
-    height: auto !important;
-    aspect-ratio: auto;
+    margin-bottom: 58px;
+  }
 
-    margin: 0;
+  .project-frame {
+    height: auto;
+  }
+
+  .project-image-frame {
+    position: static;
+
+    width: 100%;
+    height: auto;
+
+    display: block;
+  }
+
+  .project-image-frame img,
+  .project-card:hover .project-image-frame img,
+  .project-card:focus-visible .project-image-frame img {
+    display: block;
+
+    width: 100%;
+    height: auto;
 
     object-fit: contain;
 
-    transform: none !important;
-    transition: none !important;
+    transition: none;
   }
 
-
-  /* TEXT ALWAYS VISIBLE */
+  .project-number {
+    display: none;
+  }
 
   .project-info,
-  .project:hover .project-info {
-    display: block !important;
+  .project-card:hover .project-info,
+  .project-card:focus-visible .project-info {
+    position: static;
 
-    width: 100% !important;
-    max-width: none !important;
-
-    min-height: 0;
-
-    margin: 10px 0 0;
-
-    font-size: 11px;
-
-    text-align: left;
-
-    opacity: 1 !important;
-    visibility: visible !important;
-
-    transform: none !important;
-    transition: none !important;
-  }
-
-
-  /* + AT BOTTOM */
-
-  .view-all {
     display: flex;
 
     width: 100%;
-    height: auto;
 
-    justify-content: flex-start;
+    margin-top: 10px;
 
-    padding-bottom: 60px;
+    opacity: 1;
+    visibility: visible;
+  }
 
-    font-size: 24px;
+  .project-info strong {
+    font-size: 13px;
+  }
+
+  .project-info span {
+    font-size: 12px;
+  }
+
+
+  /* HIDE GHOST CONTROLS */
+
+  .carousel-control,
+  .carousel-control-previous,
+  .carousel-control-next,
+  .carousel.is-page-two .carousel-control-previous {
+    display: none;
   }
 
 }
