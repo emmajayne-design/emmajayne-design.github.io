@@ -54,10 +54,9 @@ body {
   background: #ffffff;
   color: #626262;
 
-  font-family:
-    "Courier New",
-    Courier,
-    monospace;
+  font-family: "sauna-mono", monospace;
+  font-weight: 400;
+  font-style: normal;
 }
 
 a {
@@ -143,25 +142,10 @@ a {
 }
 
 .section-title {
-  position: relative;
-
-  z-index: 30;
-
   margin:
     0
-    var(--page-margin);
-
-  /*
-    Pull Featured projects down so it sits
-    approx. 8px above the hover index.
-  */
-  transform:
-    translateY(
-      calc(
-        var(--vertical-growth)
-        + 14px
-      )
-    );
+    var(--page-margin)
+    38px;
 
   color: #585858;
 
