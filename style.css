@@ -247,4 +247,49 @@ body {
 
   /* NO NUMBERS ON MOBILE */
 
-  .
+  .project-number {
+    display: none;
+  }
+
+
+  /* LARGE IMAGES BY DEFAULT */
+
+  .project img,
+  .project:hover img {
+    width: 100%;
+    height: auto;
+
+    object-fit: contain;
+
+    transition: none;
+  }
+
+
+  /* TEXT ALWAYS VISIBLE */
+
+  .project-info,
+  .project:hover .project-info {
+    width: 100%;
+    min-height: 0;
+
+    margin-top: 10px;
+
+    opacity: 1;
+    visibility: visible;
+  }
+
+
+  /* + AT THE BOTTOM */
+
+  .view-all {
+    width: 100%;
+    height: auto;
+
+    justify-content: flex-start;
+
+    padding-bottom: 60px;
+
+    font-size: 28px;
+  }
+
+}
