@@ -29,25 +29,19 @@
 
 /* ---------- TYPE SIZES ---------- */
 
-/* 24pt / 32px at exactly 1920px */
+--type-header: 14px;
 
---type-header:
-  clamp(18px, 1.6667vw, 32px);
+--type-nav: 14px;
 
---type-nav:
-  clamp(18px, 1.6667vw, 32px);
+--type-section-title: 18px;
 
---type-project-index:
-  clamp(18px, 1.6667vw, 32px);
+--type-project-index: 13px;
 
---type-project-title:
-  clamp(18px, 1.6667vw, 32px);
+--type-project-title: 13px;
 
---type-project-info:
-  clamp(18px, 1.6667vw, 32px);
+--type-project-info: 12px;
 
---type-footer:
-  clamp(14px, 1.6667vw, 32px);
+--type-footer: 11px;
 
 
 /* Featured projects = 27pt / 36px at exactly 1920px */
@@ -350,35 +344,20 @@ a {
 
 .section-title {
   position: relative;
-
   z-index: 30;
 
   margin:
     0
-    var(--page-margin);
+    var(--page-margin)
+    12px;
 
-  transform:
-    translateY(
-      calc(
-        var(--vertical-growth)
-        + 12px
-      )
-    );
+  color: var(--colour-text);
 
-  color:
-    var(--colour-text);
-
-  font-family:
-    var(--font-main);
-
-  font-size:
-    var(--type-section-title);
-
-  font-weight:
-    var(--font-bold);
+  font-family: var(--font-main);
+  font-size: var(--type-section-title);
+  font-weight: var(--font-bold);
 
   line-height: 1;
-
   letter-spacing: 0;
 }
 
