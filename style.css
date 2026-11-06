@@ -10,28 +10,37 @@
 
 :root {
   --page-margin: clamp(24px, 3.5417vw, 68px);
+
   --card-gap: clamp(12px, 1.09375vw, 21px);
+
+  --ghost-visible: 48px;
 
   --card-width:
     calc(
       (
-        100vw -
-        (2 * var(--page-margin)) -
-        (5 * var(--card-gap))
+        100vw
+        - var(--page-margin)
+        - var(--ghost-visible)
+        - (6 * var(--card-gap))
       ) / 6
     );
 
-  --card-height: calc(var(--card-width) * 1.5);
+  --card-height:
+    calc(var(--card-width) * 1.5);
 
   --hover-scale: 1.1;
 
-  --hover-width: calc(var(--card-width) * 1.1);
-  --hover-height: calc(var(--card-height) * 1.1);
+  --hover-width:
+    calc(var(--card-width) * 1.1);
 
-  --horizontal-growth: calc(var(--card-width) * 0.05);
-  --vertical-growth: calc(var(--card-height) * 0.05);
+  --hover-height:
+    calc(var(--card-height) * 1.1);
 
-  --ghost-visible: clamp(42px, 2.4vw, 48px);
+  --horizontal-growth:
+    calc(var(--card-width) * 0.05);
+
+  --vertical-growth:
+    calc(var(--card-height) * 0.05);
 }
 
 
