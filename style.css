@@ -27,21 +27,33 @@
   --colour-hover: #111111;
 
 
- /* ---------- TYPE SIZES ---------- */
+/* ---------- TYPE SIZES ---------- */
 
---type-header: 14px;
+/* 24pt / 32px at exactly 1920px */
 
---type-nav: 14px;
+--type-header:
+  clamp(18px, 1.6667vw, 32px);
 
---type-section-title: 18px;
+--type-nav:
+  clamp(18px, 1.6667vw, 32px);
 
---type-project-index: 13px;
+--type-project-index:
+  clamp(18px, 1.6667vw, 32px);
 
---type-project-title: 13px;
+--type-project-title:
+  clamp(18px, 1.6667vw, 32px);
 
---type-project-info: 12px;
+--type-project-info:
+  clamp(18px, 1.6667vw, 32px);
 
---type-footer: 11px;
+--type-footer:
+  clamp(14px, 1.6667vw, 32px);
+
+
+/* Featured projects = 27pt / 36px at exactly 1920px */
+
+--type-section-title:
+  clamp(21px, 1.875vw, 36px);
 
 
   /* ---------- PAGE LAYOUT ---------- */
