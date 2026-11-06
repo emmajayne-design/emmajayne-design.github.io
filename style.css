@@ -28,19 +28,19 @@
   --card-height:
     calc(var(--card-width) * 1.5);
 
-  --hover-scale: 1.1;
+  --hover-scale: 1.05;
 
   --hover-width:
-    calc(var(--card-width) * 1.1);
+    calc(var(--card-width) * 1.05);
 
   --hover-height:
-    calc(var(--card-height) * 1.1);
+    calc(var(--card-height) * 1.05);
 
   --horizontal-growth:
-    calc(var(--card-width) * 0.05);
+    calc(var(--card-width) * 0.025);
 
   --vertical-growth:
-    calc(var(--card-height) * 0.05);
+    calc(var(--card-height) * 0.025);
 }
 
 
@@ -650,6 +650,46 @@ a {
   }
 
 }
+
+/* =========================
+   ONLY SHOW THE GHOST CARD
+   FOR THE ACTIVE CAROUSEL PAGE
+   ========================= */
+
+/* PAGE ONE ACTIVE:
+   hide the Project 6 ghost from page two */
+
+.carousel:not(.show-second-page)
+.carousel-page-two
+.ghost-project {
+  visibility: hidden;
+}
+
+
+/* PAGE TWO ACTIVE:
+   hide the Project 7 ghost from page one */
+
+.carousel.show-second-page
+.carousel-page-one
+.ghost-project {
+  visibility: hidden;
+}
+
+
+/* Ensure the correct ghost is visible */
+
+.carousel:not(.show-second-page)
+.carousel-page-one
+.ghost-project {
+  visibility: visible;
+}
+
+.carousel.show-second-page
+.carousel-page-two
+.ghost-project {
+  visibility: visible;
+}
+
 
 
 /* =========================
