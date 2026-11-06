@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    {{ page.title }} | Emma Hall
+  </title>
+
+
+  <!-- SAUNA MONO -->
+
+  <link
+    rel="stylesheet"
+    href="https://use.typekit.net/ivl5elk.css"
+  >
+
+
+  <!-- YOUR EXISTING SITE CSS -->
+
+  <link
+    rel="stylesheet"
+    href="{{ '/style.css' | relative_url }}"
+  >
+
+</head>
+
+
+<body>
+
+
+  <!-- SHARED HEADER -->
+
+  {% include header.html %}
+
+
+  <!-- UNIQUE PROJECT CONTENT -->
+
+  <main class="project-page">
+
+    {{ content }}
+
+  </main>
+
+
+  <!-- SHARED FOOTER -->
+
+  {% include footer.html %}
+
+
+</body>
+
+</html>
