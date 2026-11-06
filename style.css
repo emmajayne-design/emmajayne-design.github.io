@@ -1,39 +1,19 @@
 /* =========================
-   RESPONSIVE REFERENCE SYSTEM
-
-   At 1920px:
-   Left margin: 68px
-   Gap: 21px
-   Partial card: 48px
-   Hover increase: 6%
-   Card ratio: 2:3
+   REFERENCE GEOMETRY
    ========================= */
 
 :root {
   --page-margin: clamp(24px, 3.5417vw, 68px);
-
   --card-gap: clamp(12px, 1.09375vw, 21px);
 
-  --partial-width: clamp(42px, 2.5vw, 48px);
-
   --cards-per-page: 6;
-
-  /*
-    Width calculation includes:
-
-    left margin
-    full cards
-    gaps
-    partial next card
-  */
 
   --card-width:
     calc(
       (
         100vw
-        - var(--page-margin)
-        - var(--partial-width)
-        - (var(--cards-per-page) * var(--card-gap))
+        - (2 * var(--page-margin))
+        - ((var(--cards-per-page) - 1) * var(--card-gap))
       )
       / var(--cards-per-page)
     );
@@ -41,6 +21,7 @@
   --card-height:
     calc(var(--card-width) * 1.5);
 
+  /* 6% hover */
   --hover-scale: 1.06;
 
   --horizontal-growth:
@@ -51,13 +32,6 @@
 
   --hover-width:
     calc(var(--card-width) * 1.06);
-
-  --carousel-height:
-    calc(
-      var(--card-height)
-      + (2 * var(--vertical-growth))
-      + 78px
-    );
 }
 
 
@@ -104,33 +78,27 @@ a {
   width: 100%;
 
   display: flex;
-  align-items: flex-start;
   justify-content: space-between;
+  align-items: flex-start;
 
-  padding:
-    24px
-    var(--page-margin);
+  padding: 24px var(--page-margin);
 }
 
 .identity {
   display: flex;
   align-items: center;
-
   gap: 14px;
 
   text-decoration: none;
 }
 
 .identity-mark {
-  display: block;
-
   width: 40px;
   height: 40px;
 
   flex: 0 0 40px;
 
   border-radius: 50%;
-
   background: #686868;
 }
 
@@ -157,10 +125,6 @@ a {
 .site-navigation a {
   font-size: 14px;
   text-decoration: none;
-}
-
-.site-navigation a:hover {
-  color: #111111;
 }
 
 
@@ -200,38 +164,28 @@ a {
   position: relative;
 
   width: 100%;
-  height: var(--carousel-height);
+
+  height:
+    calc(
+      var(--card-height)
+      + (2 * var(--vertical-growth))
+      + 70px
+    );
 
   overflow: visible;
 }
-
-
-/*
-  The viewport clips horizontally.
-
-  Negative top/bottom clip values allow
-  hovered cards, indices and metadata
-  to extend vertically.
-*/
 
 .carousel-viewport {
   position: absolute;
   inset: 0;
 
-  overflow: visible;
-
-  clip-path:
-    inset(
-      -90px
-      0
-      -100px
-      0
-    );
+  overflow-x: hidden;
+  overflow-y: visible;
 }
 
 
 /* =========================
-   ONE CONTINUOUS TRACK
+   ONE CONTINUOUS ROW
    ========================= */
 
 .carousel-track {
@@ -239,7 +193,8 @@ a {
 
   top:
     calc(
-      var(--vertical-growth) + 30px
+      var(--vertical-growth)
+      + 26px
     );
 
   left: 0;
@@ -256,8 +211,7 @@ a {
   transform: translateX(0);
 
   transition:
-    transform
-    420ms
+    transform 420ms
     cubic-bezier(0.22, 1, 0.36, 1);
 
   will-change: transform;
@@ -271,14 +225,13 @@ a {
 .project-card {
   position: relative;
 
-  display: block;
-
   width: var(--card-width);
   height: var(--card-height);
 
   flex: 0 0 var(--card-width);
 
-  color: inherit;
+  display: block;
+
   text-decoration: none;
 
   overflow: visible;
@@ -286,15 +239,15 @@ a {
 
 
 /* =========================
-   PROJECT IMAGE
+   IMAGE
    ========================= */
 
 .project-image-stage {
   position: absolute;
   inset: 0;
 
-  width: var(--card-width);
-  height: var(--card-height);
+  width: 100%;
+  height: 100%;
 
   aspect-ratio: 2 / 3;
 
@@ -311,61 +264,36 @@ a {
 
   object-fit: cover;
 
-  opacity: 1;
-
   transform: scale(1);
   transform-origin: center center;
 
   transition:
-    transform 180ms ease,
-    opacity 150ms ease;
+    transform 180ms ease;
 }
 
 
 /* =========================
-   PARTIALLY VISIBLE CARD
-
-   Added automatically by JavaScript.
+   6% HOVER
    ========================= */
 
-.project-card.is-partial
-.project-image-stage img {
-  opacity: 0.5;
-}
-
-
-/*
-  A partial card is navigation,
-  so it does not enlarge on hover.
-*/
-
-.project-card.is-partial:hover
-.project-image-stage img {
-  transform: scale(1);
-}
-
-
-/* =========================
-   NORMAL CARD HOVER
-
-   6% larger from the centre.
-   ========================= */
-
-.project-card:not(.is-partial):hover,
-.project-card:not(.is-partial):focus-visible {
+.project-card:hover,
+.project-card:focus-visible {
   z-index: 20;
 }
 
-.project-card:not(.is-partial):hover
+.project-card:hover
 .project-image-stage img,
-.project-card:not(.is-partial):focus-visible
+.project-card:focus-visible
 .project-image-stage img {
   transform: scale(var(--hover-scale));
 }
 
 
 /* =========================
-   PROJECT INDEX
+   INDEX
+
+   4px from max hover frame.
+   Previously 8px.
    ========================= */
 
 .project-number {
@@ -380,7 +308,7 @@ a {
     calc(
       100%
       + var(--vertical-growth)
-      + 8px
+      + 4px
     );
 
   width: var(--hover-width);
@@ -393,13 +321,12 @@ a {
   opacity: 0;
   visibility: hidden;
 
-  transition:
-    opacity 100ms linear;
+  transition: opacity 100ms linear;
 }
 
 
 /* =========================
-   PROJECT INFORMATION
+   PROJECT INFO
    ========================= */
 
 .project-info {
@@ -425,8 +352,7 @@ a {
   opacity: 0;
   visibility: hidden;
 
-  transition:
-    opacity 100ms linear;
+  transition: opacity 100ms linear;
 }
 
 .project-info strong {
@@ -446,26 +372,17 @@ a {
   line-height: 1.05;
 }
 
-
-/*
-  Show metadata only for complete cards.
-*/
-
-.project-card:not(.is-partial):hover
-.project-number,
-.project-card:not(.is-partial):hover
-.project-info,
-.project-card:not(.is-partial):focus-visible
-.project-number,
-.project-card:not(.is-partial):focus-visible
-.project-info {
+.project-card:hover .project-number,
+.project-card:hover .project-info,
+.project-card:focus-visible .project-number,
+.project-card:focus-visible .project-info {
   opacity: 1;
   visibility: visible;
 }
 
 
 /* =========================
-   ARROW BUTTONS
+   ARROWS
    ========================= */
 
 .carousel-arrow {
@@ -474,19 +391,20 @@ a {
 
   top:
     calc(
-      var(--vertical-growth) + 30px
+      var(--vertical-growth)
+      + 26px
     );
 
-  width: var(--partial-width);
+  width: var(--page-margin);
   height: var(--card-height);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
   padding: 0;
 
   border: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   background: transparent;
   color: #050505;
@@ -514,14 +432,9 @@ a {
   display: none;
 }
 
-.carousel-arrow:focus-visible {
-  outline: 2px solid #111111;
-  outline-offset: -4px;
-}
-
 
 /* =========================
-   FIVE-CARD BREAKPOINT
+   5-UP
    ========================= */
 
 @media (min-width: 1100px) and (max-width: 1399px) {
@@ -534,14 +447,13 @@ a {
 
 
 /* =========================
-   FOUR-CARD BREAKPOINT
+   4-UP
    ========================= */
 
 @media (min-width: 768px) and (max-width: 1099px) {
 
   :root {
     --cards-per-page: 4;
-
     --page-margin: 24px;
   }
 
@@ -550,7 +462,6 @@ a {
 
 /* =========================
    MOBILE
-   767PX AND BELOW
    ========================= */
 
 @media (max-width: 767px) {
@@ -590,8 +501,6 @@ a {
   }
 
 
-  /* FEATURED SECTION */
-
   .featured-section {
     min-height: 0;
 
@@ -613,8 +522,6 @@ a {
   }
 
 
-  /* VERTICAL PROJECT LIST */
-
   .carousel {
     height: auto;
   }
@@ -622,8 +529,6 @@ a {
   .carousel-viewport {
     position: relative;
     inset: auto;
-
-    clip-path: none;
 
     overflow: visible;
   }
@@ -635,11 +540,12 @@ a {
 
     width: 100%;
 
-    padding-left: 0;
+    padding: 0;
 
     transform: none !important;
     transition: none;
   }
+
 
   .project-card {
     display: block;
@@ -660,9 +566,7 @@ a {
   }
 
   .project-image-stage img,
-  .project-card:hover .project-image-stage img,
-  .project-card:focus-visible .project-image-stage img,
-  .project-card.is-partial
+  .project-card:hover
   .project-image-stage img {
     display: block;
 
@@ -673,19 +577,17 @@ a {
 
     object-fit: cover;
 
-    opacity: 1;
-
     transform: none;
-    transition: none;
   }
+
 
   .project-number {
     display: none;
   }
 
+
   .project-info,
-  .project-card:hover .project-info,
-  .project-card:focus-visible .project-info {
+  .project-card:hover .project-info {
     position: static;
 
     display: flex;
@@ -698,30 +600,9 @@ a {
     visibility: visible;
   }
 
-  .project-info strong {
-    font-size: 13px;
-  }
-
-  .project-info span {
-    font-size: 12px;
-  }
 
   .carousel-arrow {
     display: none;
-  }
-
-}
-
-
-/* =========================
-   REDUCED MOTION
-   ========================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-  .carousel-track,
-  .project-image-stage img {
-    transition: none;
   }
 
 }

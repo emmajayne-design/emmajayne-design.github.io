@@ -1,36 +1,19 @@
-const carousel =
-  document.querySelector(".carousel");
-
-const viewport =
-  document.querySelector(".carousel-viewport");
-
 const track =
   document.querySelector(".carousel-track");
 
 const cards =
-  Array.from(
-    document.querySelectorAll(".project-card")
-  );
+  [...document.querySelectorAll(".project-card")];
 
-const previousButton =
-  document.querySelector(
-    ".carousel-arrow-previous"
-  );
+const next =
+  document.querySelector(".carousel-arrow-next");
 
-const nextButton =
-  document.querySelector(
-    ".carousel-arrow-next"
-  );
-
+const previous =
+  document.querySelector(".carousel-arrow-previous");
 
 let currentIndex = 0;
 
 
-/* =========================
-   RESPONSIVE PAGE SIZE
-   ========================= */
-
-function getPageSize() {
+function pageSize() {
 
   if (window.innerWidth >= 1400) {
     return 6;
@@ -48,327 +31,136 @@ function getPageSize() {
 }
 
 
-/* =========================
-   READ A CSS PIXEL VALUE
-   ========================= */
+function updateCarousel() {
 
-function getCSSPixels(variableName) {
-
-  const styles =
-    getComputedStyle(document.documentElement);
-
-  const value =
-    styles.getPropertyValue(variableName);
-
-  return parseFloat(value) || 0;
-}
+  const size = pageSize();
 
 
-/* =========================
-   CALCULATE TRACK POSITION
-   ========================= */
+  /* MOBILE */
 
-function moveTrack() {
+  if (size === 0) {
 
-  const pageSize = getPageSize();
-
-  /*
-    Mobile uses the vertical layout.
-  */
-
-  if (pageSize === 0) {
+    currentIndex = 0;
 
     track.style.transform = "none";
 
-    previousButton.hidden = true;
-    nextButton.hidden = true;
-
-    cards.forEach((card) => {
-      card.classList.remove("is-partial");
-    });
+    previous.hidden = true;
+    next.hidden = true;
 
     return;
   }
 
 
+  /* KEEP WITHIN THE 12 PROJECTS */
+
   const maximumStart =
-    Math.max(0, cards.length - pageSize);
+    Math.max(
+      0,
+      cards.length - size
+    );
+
 
   currentIndex =
-    Math.min(currentIndex, maximumStart);
+    Math.min(
+      currentIndex,
+      maximumStart
+    );
 
 
   /*
-    At the beginning, preserve the normal
-    page margin.
+    THE IMPORTANT BIT:
 
-    On later pages, position the current
-    full card immediately after the visible
-    previous-card slice and normal gap.
+    Card 01 is the original left-margin anchor.
+
+    Whatever card begins the current page
+    gets moved to that exact same position.
   */
 
-  let translateX = 0;
+  const firstCard =
+    cards[0];
 
-  if (currentIndex > 0) {
+  const targetCard =
+    cards[currentIndex];
 
-    const currentCard =
-      cards[currentIndex];
 
-    const partialWidth =
-      getCSSPixels("--partial-width");
-
-    const gap =
-      getCSSPixels("--card-gap");
-
-    translateX =
-      currentCard.offsetLeft
-      - partialWidth
-      - gap;
-  }
+  const distance =
+    targetCard.offsetLeft
+    - firstCard.offsetLeft;
 
 
   track.style.transform =
-    `translateX(-${translateX}px)`;
+    `translateX(-${distance}px)`;
 
 
-  /*
-    Wait until the browser has applied
-    the transform before measuring cards.
-  */
+  /* ARROWS */
 
-  requestAnimationFrame(() => {
-    updatePartialCards();
-    updateButtons();
-  });
-}
-
-
-/* =========================
-   DETECT PARTIAL VISIBILITY
-   ========================= */
-
-function updatePartialCards() {
-
-  const viewportRect =
-    viewport.getBoundingClientRect();
-
-
-  cards.forEach((card) => {
-
-    const cardRect =
-      card.getBoundingClientRect();
-
-
-    const visibleLeft =
-      Math.max(
-        cardRect.left,
-        viewportRect.left
-      );
-
-
-    const visibleRight =
-      Math.min(
-        cardRect.right,
-        viewportRect.right
-      );
-
-
-    const visibleWidth =
-      Math.max(
-        0,
-        visibleRight - visibleLeft
-      );
-
-
-    const visibleRatio =
-      visibleWidth / cardRect.width;
-
-
-    /*
-      Treat a card as partial when some,
-      but not nearly all, is visible.
-    */
-
-    const isPartial =
-      visibleRatio > 0.01
-      && visibleRatio < 0.99;
-
-
-    card.classList.toggle(
-      "is-partial",
-      isPartial
-    );
-
-  });
-
-}
-
-
-/* =========================
-   ARROW VISIBILITY
-   ========================= */
-
-function updateButtons() {
-
-  const pageSize = getPageSize();
-
-  const maximumStart =
-    Math.max(0, cards.length - pageSize);
-
-
-  previousButton.hidden =
+  previous.hidden =
     currentIndex === 0;
 
 
-  nextButton.hidden =
+  next.hidden =
     currentIndex >= maximumStart;
 
 }
 
 
-/* =========================
-   MOVE FORWARD
-   ========================= */
-
-function moveForward() {
-
-  const pageSize = getPageSize();
-
-  if (pageSize === 0) {
-    return;
-  }
-
-
-  const maximumStart =
-    Math.max(0, cards.length - pageSize);
-
-
-  currentIndex =
-    Math.min(
-      currentIndex + pageSize,
-      maximumStart
-    );
-
-
-  moveTrack();
-
-}
-
-
-/* =========================
-   MOVE BACKWARD
-   ========================= */
-
-function moveBackward() {
-
-  const pageSize = getPageSize();
-
-  if (pageSize === 0) {
-    return;
-  }
-
-
-  currentIndex =
-    Math.max(
-      currentIndex - pageSize,
-      0
-    );
-
-
-  moveTrack();
-
-}
-
-
-/* =========================
-   BUTTON CLICKS
-   ========================= */
-
-nextButton.addEventListener(
+next.addEventListener(
   "click",
-  moveForward
+  function () {
+
+    const size = pageSize();
+
+    if (size === 0) {
+      return;
+    }
+
+
+    const maximumStart =
+      Math.max(
+        0,
+        cards.length - size
+      );
+
+
+    currentIndex =
+      Math.min(
+        currentIndex + size,
+        maximumStart
+      );
+
+
+    updateCarousel();
+
+  }
 );
 
 
-previousButton.addEventListener(
+previous.addEventListener(
   "click",
-  moveBackward
-);
+  function () {
 
+    const size = pageSize();
 
-/* =========================
-   PARTIAL CARD CLICKS
-
-   Clicking a partial card moves
-   in the appropriate direction.
-   ========================= */
-
-cards.forEach((card) => {
-
-  card.addEventListener(
-    "click",
-    function (event) {
-
-      if (
-        !card.classList.contains(
-          "is-partial"
-        )
-      ) {
-        return;
-      }
-
-
-      event.preventDefault();
-
-
-      const cardRect =
-        card.getBoundingClientRect();
-
-      const viewportRect =
-        viewport.getBoundingClientRect();
-
-
-      if (
-        cardRect.left
-        < viewportRect.left
-      ) {
-        moveBackward();
-      } else {
-        moveForward();
-      }
-
-    }
-  );
-
-});
-
-
-/* =========================
-   KEYBOARD ARROWS
-   ========================= */
-
-document.addEventListener(
-  "keydown",
-  function (event) {
-
-    if (event.key === "ArrowRight") {
-      moveForward();
+    if (size === 0) {
+      return;
     }
 
 
-    if (event.key === "ArrowLeft") {
-      moveBackward();
-    }
+    currentIndex =
+      Math.max(
+        0,
+        currentIndex - size
+      );
+
+
+    updateCarousel();
 
   }
 );
 
 
 /* =========================
-   RESIZING
-
-   Recalculate both page size
-   and card position.
+   RESIZE
    ========================= */
 
 let resizeTimer;
@@ -384,28 +176,17 @@ window.addEventListener(
     resizeTimer =
       setTimeout(function () {
 
-        const pageSize =
-          getPageSize();
+        /*
+          Reset to the first set when changing
+          breakpoint. Keeps the behaviour
+          predictable while we're designing.
+        */
 
+        currentIndex = 0;
 
-        if (pageSize > 0) {
+        updateCarousel();
 
-          currentIndex =
-            Math.floor(
-              currentIndex / pageSize
-            )
-            * pageSize;
-
-        } else {
-
-          currentIndex = 0;
-
-        }
-
-
-        moveTrack();
-
-      }, 120);
+      }, 100);
 
   }
 );
@@ -415,4 +196,4 @@ window.addEventListener(
    INITIALISE
    ========================= */
 
-moveTrack();
+updateCarousel();
