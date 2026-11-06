@@ -196,4 +196,4 @@ window.addEventListener(
    INITIALISE
    ========================= */
 
-updateCarousel();
+updateCarousel(); 
