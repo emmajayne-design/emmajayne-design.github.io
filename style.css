@@ -202,94 +202,75 @@ body {
 
 @media (max-width: 900px) {
 
-  .site-header {
-    padding: 18px;
-  }
+.project-gallery {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
 
-  .nav {
-    gap: 16px;
-  }
-
-  .intro {
-    min-height: 65vh;
-    padding: 18px;
-  }
-
-  .intro h1 {
-    font-size: 44px;
-  }
-
-  .work {
-    padding: 18px;
-  }
+.project {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: 60px;
+}
 
 
-  /* TURN GALLERY INTO VERTICAL LIST */
+/* REMOVE INDEX COMPLETELY */
 
-  .project-gallery {
-    display: block;
-
-    width: 100%;
-    height: auto;
-
-    overflow: visible;
-  }
-
-  .project {
-    display: block;
-
-    width: 100%;
-    height: auto;
-
-    margin-bottom: 60px;
-  }
+.project-number,
+.project:hover .project-number {
+  display: none;
+}
 
 
-  /* NO NUMBERS ON MOBILE */
+/* IMAGE IS ALWAYS IN ITS LARGE STATE */
 
-  .project-number {
-    display: none;
-  }
+.project img,
+.project:hover img {
+  display: block;
 
+  width: 100%;
+  height: auto;
 
-  /* LARGE IMAGES BY DEFAULT */
+  object-fit: contain;
 
-  .project img,
-  .project:hover img {
-    width: 100%;
-    height: auto;
-
-    object-fit: contain;
-
-    transition: none;
-  }
+  transition: none;
+}
 
 
-  /* TEXT ALWAYS VISIBLE */
+/* TEXT IS ALWAYS VISIBLE */
 
-  .project-info,
-  .project:hover .project-info {
-    width: 100%;
-    min-height: 0;
+.project-info,
+.project:hover .project-info {
+  display: block;
 
-    margin-top: 10px;
+  width: 100%;
+  min-height: 0;
 
-    opacity: 1;
-    visibility: visible;
-  }
+  margin-top: 10px;
+
+  opacity: 1;
+  visibility: visible;
+
+  transition: none;
+}
 
 
-  /* + AT THE BOTTOM */
+/* VIEW ALL */
 
-  .view-all {
-    width: 100%;
-    height: auto;
+.view-all {
+  display: flex;
 
-    justify-content: flex-start;
+  width: 100%;
+  height: auto;
 
-    padding-bottom: 60px;
+  justify-content: flex-start;
 
-    font-size: 28px;
-  }
+  padding-bottom: 60px;
+
+  font-size: 28px;
+}
 
 }
