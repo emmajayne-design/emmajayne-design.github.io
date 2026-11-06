@@ -89,7 +89,7 @@ body {
 
 .project-gallery {
   width: 100%;
-  height: 460px;
+  height: 500px;
 
   display: grid;
 
@@ -109,7 +109,7 @@ body {
   position: relative;
 
   width: 100%;
-  height: 410px;
+  height: 450px;
   min-width: 0;
 
   display: flex;
@@ -122,8 +122,8 @@ body {
 /* =========================
    INDEX
 
-   Width matches MAXIMUM
-   hovered image width.
+   This is sized to the
+   MAXIMUM hover width.
    ========================= */
 
 .project-number {
@@ -131,7 +131,7 @@ body {
   max-width: 253px;
   height: 18px;
 
-  margin: 0 auto 6px;
+  margin: 0 auto 18px;
 
   font-size: 10px;
   line-height: 1;
@@ -146,6 +146,10 @@ body {
 
 /* =========================
    IMAGE
+
+   Resting width = 86%
+   Hover = 10% scale
+   86 × 1.1 = 94.6%
    ========================= */
 
 .project img {
@@ -157,14 +161,11 @@ body {
   height: auto;
   aspect-ratio: 5 / 7;
 
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 
   object-fit: cover;
 
   transform: scale(1);
-
-  /* GROW EQUALLY LEFT + RIGHT */
   transform-origin: center center;
 
   transition: transform 180ms ease;
@@ -172,10 +173,10 @@ body {
 
 
 /* =========================
-   PROJECT INFORMATION
+   PROJECT INFO
 
-   Width matches MAXIMUM
-   hovered image width.
+   Also pinned to the maximum
+   hover-image width.
    ========================= */
 
 .project-info {
@@ -183,7 +184,7 @@ body {
   max-width: 253px;
   min-height: 32px;
 
-  margin: 6px auto 0;
+  margin: 18px auto 0;
 
   font-size: 10px;
   line-height: 1.2;
@@ -221,7 +222,7 @@ body {
 
 .view-all {
   width: 42px;
-  height: 410px;
+  height: 450px;
 
   display: flex;
   align-items: center;
@@ -253,14 +254,14 @@ body {
     display: none;
   }
 
-  /* resting image */
-
   .project img {
     width: 84%;
     max-width: 210px;
   }
 
-  /* text = 10% larger hover footprint */
+  /*
+    84 × 1.1 = 92.4%
+  */
 
   .project-number,
   .project-info {
@@ -290,14 +291,14 @@ body {
     display: none;
   }
 
-  /* resting image */
-
   .project img {
     width: 82%;
     max-width: 195px;
   }
 
-  /* text = 10% larger hover footprint */
+  /*
+    82 × 1.1 = 90.2%
+  */
 
   .project-number,
   .project-info {
@@ -331,6 +332,7 @@ body {
 
   .work {
     min-height: 0;
+
     display: block;
 
     padding: 80px 18px 18px;
@@ -397,7 +399,7 @@ body {
   }
 
 
-  /* INFORMATION ALWAYS VISIBLE */
+  /* TEXT ALWAYS VISIBLE */
 
   .project-info,
   .project:hover .project-info {
