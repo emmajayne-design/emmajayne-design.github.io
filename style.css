@@ -1099,3 +1099,13 @@ and (
   }
 
 }
+
+
+/* PROJECT PAGE */
+
+.project-page {
+  padding:
+    120px
+    var(--page-margin)
+    60px;
+}
