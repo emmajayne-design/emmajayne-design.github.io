@@ -1,0 +1,30 @@
+<nav class="project-nav">
+
+  <a class="project-nav-prev" href="{{ page.previous_url }}">
+    <span>Previous</span>
+    <strong>[{{ page.previous_index }}] {{ page.previous_title }}</strong>
+
+    <img
+      src="{{ page.previous_image }}"
+      alt=""
+    >
+  </a>
+
+
+  <a class="project-nav-all" href="/#work">
+    <span>All Works</span>
+    <strong>BACK TO LIST</strong>
+  </a>
+
+
+  <a class="project-nav-next" href="{{ page.next_url }}">
+    <span>Next</span>
+    <strong>[{{ page.next_index }}] {{ page.next_title }}</strong>
+
+    <img
+      src="{{ page.next_image }}"
+      alt=""
+    >
+  </a>
+
+</nav>

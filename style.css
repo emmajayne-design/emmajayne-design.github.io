@@ -1109,3 +1109,74 @@ and (
     var(--page-margin)
     60px;
 }
+
+
+/* PROJECT PAGE NAV */
+
+.project-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  padding:
+    100px
+    var(--page-margin);
+
+  align-items: start;
+}
+
+
+.project-nav a {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  color: var(--colour-text);
+  text-decoration: none;
+}
+
+
+.project-nav span {
+  color: var(--colour-text-light);
+}
+
+
+.project-nav strong {
+  color: var(--colour-text-dark);
+}
+
+
+/* MIDDLE */
+
+.project-nav-all {
+  text-align: center;
+  align-items: center;
+}
+
+
+/* RIGHT */
+
+.project-nav-next {
+  text-align: right;
+  align-items: flex-end;
+}
+
+
+/* HOVER IMAGES */
+
+.project-nav img {
+  width: 220px;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+
+  margin-top: 15px;
+
+  opacity: 0;
+
+  transition: opacity 150ms ease;
+}
+
+
+.project-nav a:hover img {
+  opacity: 1;
+}
