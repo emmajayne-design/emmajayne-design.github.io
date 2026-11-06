@@ -143,10 +143,25 @@ a {
 }
 
 .section-title {
+  position: relative;
+
+  z-index: 30;
+
   margin:
     0
-    var(--page-margin)
-    24px;
+    var(--page-margin);
+
+  /*
+    Pull Featured projects down so it sits
+    approx. 8px above the hover index.
+  */
+  transform:
+    translateY(
+      calc(
+        var(--vertical-growth)
+        + 14px
+      )
+    );
 
   color: #585858;
 
