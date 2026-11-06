@@ -1,22 +1,17 @@
 /* =========================
-   REFERENCE GEOMETRY
+   1920 × 1080 REFERENCE
 
-   At 1920px:
-   Side margin: 68px
-   Card width: 280px
-   Card height: 420px
+   Outer margin: 68px
+   Resting card: 280 × 420px
    Gap: 21px
-   Hover: 308 x 462px
+   Hover card: 308 × 462px
+   Hover increase: exactly 10%
+   Ratio: exactly 2:3
    ========================= */
 
 :root {
-  --page-margin: clamp(28px, 3.5417vw, 68px);
+  --page-margin: clamp(24px, 3.5417vw, 68px);
   --card-gap: clamp(12px, 1.09375vw, 21px);
-
-  /*
-    Six cards fill the available width,
-    excluding five internal gaps.
-  */
 
   --card-width:
     calc(
@@ -27,16 +22,26 @@
       ) / 6
     );
 
-  --card-height:
-    calc(var(--card-width) * 1.5);
+  --card-height: calc(var(--card-width) * 1.5);
 
   --hover-scale: 1.1;
 
-  --ghost-visible:
-    clamp(38px, 2.4vw, 46px);
+  --hover-width: calc(var(--card-width) * 1.1);
+  --hover-height: calc(var(--card-height) * 1.1);
 
-  --project-area-height:
-    calc(var(--card-height) * 1.22);
+  --hover-horizontal-overlap:
+    calc(var(--card-width) * 0.05);
+
+  --hover-vertical-overlap:
+    calc(var(--card-height) * 0.05);
+
+  --ghost-visible: clamp(42px, 2.4vw, 48px);
+
+  --carousel-height:
+    calc(
+      var(--hover-height) +
+      82px
+    );
 }
 
 
@@ -54,6 +59,7 @@ html {
 
 body {
   margin: 0;
+
   overflow-x: hidden;
 
   background: #ffffff;
@@ -78,6 +84,7 @@ a {
   position: fixed;
   top: 0;
   left: 0;
+
   z-index: 100;
 
   width: 100%;
@@ -154,14 +161,14 @@ a {
   flex-direction: column;
   justify-content: flex-end;
 
-  padding-bottom: clamp(60px, 10vh, 108px);
+  padding-bottom: clamp(55px, 7vh, 76px);
 }
 
 .section-title {
   margin:
     0
     var(--page-margin)
-    clamp(24px, 2.7vh, 30px);
+    28px;
 
   color: #585858;
 
@@ -179,14 +186,32 @@ a {
   position: relative;
 
   width: 100%;
-  height: var(--project-area-height);
+  height: var(--carousel-height);
+
+  /*
+    Allows hovered cards to extend
+    upward and downward.
+  */
+
+  overflow: visible;
 }
 
 .carousel-viewport {
   position: absolute;
-  inset: 0;
 
-  overflow: hidden;
+  /*
+    Extra vertical room for:
+    index + upward hover growth +
+    metadata below the image.
+  */
+
+  top: calc(var(--hover-vertical-overlap) * -1 - 30px);
+  left: 0;
+  right: 0;
+  bottom: -58px;
+
+  overflow-x: hidden;
+  overflow-y: visible;
 }
 
 .carousel-track {
@@ -203,13 +228,13 @@ a {
     cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.carousel.is-page-two .carousel-track {
+.carousel.show-second-page .carousel-track {
   transform: translateX(-50%);
 }
 
 
 /* =========================
-   EACH CAROUSEL STATE
+   EACH CAROUSEL PAGE
    ========================= */
 
 .carousel-page {
@@ -219,6 +244,8 @@ a {
   height: 100%;
 
   flex: 0 0 50%;
+
+  overflow: visible;
 }
 
 
@@ -229,7 +256,11 @@ a {
 .project-row {
   position: absolute;
 
-  top: 0;
+  top:
+    calc(
+      var(--hover-vertical-overlap) +
+      30px
+    );
 
   display: flex;
   align-items: flex-start;
@@ -237,35 +268,37 @@ a {
   gap: var(--card-gap);
 
   width: max-content;
+
+  overflow: visible;
 }
 
 
 /*
-  State one:
+  PAGE ONE
 
-  Projects 1–6 begin at the page margin.
-  Project 7 follows as a full-size card
-  but is cropped by the viewport.
+  Projects 1 to 6 begin at the
+  reference 68px margin.
+
+  Full-size Project 7 follows.
 */
 
-.carousel-page-first .project-row {
+.carousel-page-one .project-row {
   left: var(--page-margin);
 }
 
 
 /*
-  State two:
+  PAGE TWO
 
-  Project 6 is the first full-size card.
+  Full Project 6 sits to the left.
+  Only the specified ghost amount
+  remains visible.
 
-  The row is moved left so only the
-  ghost-visible portion remains onscreen.
-
-  Project 7 then begins at the same
-  left margin as Project 1 did.
+  Project 7 then begins at the normal
+  page margin.
 */
 
-.carousel-page-second .project-row {
+.carousel-page-two .project-row {
   left:
     calc(
       var(--page-margin) -
@@ -286,7 +319,7 @@ a {
   display: block;
 
   width: var(--card-width);
-  height: var(--project-area-height);
+  height: var(--card-height);
 
   flex: 0 0 var(--card-width);
 
@@ -299,18 +332,17 @@ a {
 
 /* =========================
    RESTING IMAGE
-
-   Exactly 2:3.
    ========================= */
 
 .project-image-stage {
   position: absolute;
 
-  top: 0;
-  left: 0;
+  inset: 0;
 
   width: var(--card-width);
   height: var(--card-height);
+
+  aspect-ratio: 2 / 3;
 
   overflow: visible;
 }
@@ -336,15 +368,15 @@ a {
 
 
 /* =========================
-   10% CENTRE HOVER
+   HOVER
 
-   The enlargement may overlap
-   each neighbouring card slightly.
+   Expands 5% in every direction.
+   Neighbouring cards do not move.
    ========================= */
 
 .project-card:hover,
 .project-card:focus-visible {
-  z-index: 10;
+  z-index: 20;
 }
 
 .project-card:hover .project-image-stage img,
@@ -354,23 +386,28 @@ a {
 
 
 /* =========================
-   PROJECT NUMBER
+   INDEX NUMBER
 
-   Width and left position match
-   the 110% hover frame.
+   Positioned against the enlarged
+   hover footprint.
    ========================= */
 
 .project-number {
   position: absolute;
 
-  top:
+  left:
     calc(
-      var(--card-height) * -0.05 - 30px
+      var(--hover-horizontal-overlap) * -1
     );
 
-  left: -5%;
+  bottom:
+    calc(
+      100% +
+      var(--hover-vertical-overlap) +
+      8px
+    );
 
-  width: 110%;
+  width: var(--hover-width);
 
   color: #707070;
 
@@ -390,21 +427,26 @@ a {
 /* =========================
    PROJECT INFORMATION
 
-   Begins immediately beneath
-   the fully enlarged image.
+   Positioned directly below the
+   enlarged hover footprint.
    ========================= */
 
 .project-info {
   position: absolute;
 
-  top:
+  left:
     calc(
-      var(--card-height) * 1.05 + 10px
+      var(--hover-horizontal-overlap) * -1
     );
 
-  left: -5%;
+  top:
+    calc(
+      100% +
+      var(--hover-vertical-overlap) +
+      8px
+    );
 
-  width: 110%;
+  width: var(--hover-width);
 
   display: flex;
   flex-direction: column;
@@ -445,14 +487,16 @@ a {
 
 
 /* =========================
-   GHOST PROJECT CARD
+   GHOST PROJECT
 
-   Same dimensions and ratio
-   as every other project.
+   Same dimensions as all other cards.
+   The viewport crops it.
    ========================= */
 
 .ghost-project {
   position: relative;
+
+  display: block;
 
   width: var(--card-width);
   height: var(--card-height);
@@ -467,24 +511,10 @@ a {
 
   cursor: pointer;
 
-  overflow: visible;
-}
-
-.ghost-project-image {
-  position: absolute;
-  inset: 0;
-
-  opacity: 0.5;
-
   overflow: hidden;
-
-  transition:
-    opacity
-    150ms
-    ease;
 }
 
-.ghost-project-image img {
+.ghost-project img {
   display: block;
 
   width: 100%;
@@ -493,16 +523,18 @@ a {
   aspect-ratio: 2 / 3;
 
   object-fit: cover;
+
+  opacity: 0.5;
+
+  transition:
+    opacity
+    150ms
+    ease;
 }
 
-.ghost-project:hover .ghost-project-image {
+.ghost-project:hover img {
   opacity: 0.62;
 }
-
-
-/*
-  The arrow is not faded.
-*/
 
 .ghost-arrow {
   position: absolute;
@@ -532,17 +564,10 @@ a {
 
 
 /* =========================
-   MOBILE PROJECT LIST
-   ========================= */
+   RESPONSIVE DESKTOP
 
-.mobile-project-list {
-  display: none;
-}
-
-
-/* =========================
-   MEDIUM DESKTOP
-   FIVE FULL PROJECTS
+   Five cards before they become
+   too small.
    ========================= */
 
 @media (min-width: 1150px) and (max-width: 1399px) {
@@ -558,7 +583,13 @@ a {
       );
   }
 
-  .desktop-project-six {
+  .carousel-page-one
+  .project-card:nth-of-type(6) {
+    display: none;
+  }
+
+  .carousel-page-two
+  .project-card:last-child {
     display: none;
   }
 
@@ -567,7 +598,8 @@ a {
 
 /* =========================
    SMALL DESKTOP
-   FOUR FULL PROJECTS
+
+   Four cards.
    ========================= */
 
 @media (min-width: 901px) and (max-width: 1149px) {
@@ -585,24 +617,14 @@ a {
       );
   }
 
-  .desktop-project-five,
-  .desktop-project-six {
+  .carousel-page-one
+  .project-card:nth-of-type(n + 5) {
     display: none;
   }
 
-}
-
-
-/* =========================
-   REDUCED MOTION
-   ========================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-  .carousel-track,
-  .project-image-stage img,
-  .ghost-project-image {
-    transition: none;
+  .carousel-page-two
+  .project-card:nth-of-type(n + 5) {
+    display: none;
   }
 
 }
@@ -620,7 +642,6 @@ a {
     padding: 18px;
 
     flex-direction: column;
-
     gap: 22px;
   }
 
@@ -673,31 +694,86 @@ a {
   }
 
 
-  /* HIDE DESKTOP CAROUSEL */
+  /* CAROUSEL BECOMES VERTICAL */
 
   .carousel {
+    height: auto;
+    overflow: visible;
+  }
+
+  .carousel-viewport {
+    position: relative;
+
+    inset: auto;
+
+    overflow: visible;
+  }
+
+  .carousel-track,
+  .carousel.show-second-page .carousel-track {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    transform: none;
+    transition: none;
+  }
+
+  .carousel-page {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    overflow: visible;
+  }
+
+  .project-row,
+  .carousel-page-one .project-row,
+  .carousel-page-two .project-row {
+    position: static;
+
+    display: block;
+
+    width: 100%;
+  }
+
+
+  /* ONLY DISPLAY EACH PROJECT ONCE */
+
+  .carousel-page-two {
+    display: none;
+  }
+
+  .ghost-project {
     display: none;
   }
 
 
-  /* VERTICAL MOBILE LIST */
+  /* MOBILE PROJECT CARDS */
 
-  .mobile-project-list {
-    display: block;
-  }
-
-  .mobile-project {
-    display: block;
+  .project-card {
+    display: block !important;
 
     width: 100%;
+    height: auto;
 
     margin-bottom: 58px;
-
-    color: inherit;
-    text-decoration: none;
   }
 
-  .mobile-project img {
+  .project-image-stage {
+    position: static;
+
+    width: 100%;
+    height: auto;
+
+    aspect-ratio: 2 / 3;
+  }
+
+  .project-image-stage img,
+  .project-card:hover .project-image-stage img,
+  .project-card:focus-visible .project-image-stage img {
     display: block;
 
     width: 100%;
@@ -706,29 +782,51 @@ a {
     aspect-ratio: 2 / 3;
 
     object-fit: cover;
+
+    transform: none;
+    transition: none;
   }
 
-  .mobile-project-info {
+  .project-number {
+    display: none;
+  }
+
+  .project-info,
+  .project-card:hover .project-info,
+  .project-card:focus-visible .project-info {
+    position: static;
+
     display: flex;
-    flex-direction: column;
+
+    width: 100%;
 
     margin-top: 10px;
+
+    opacity: 1;
+    visibility: visible;
   }
 
-  .mobile-project-info strong {
-    color: #565656;
-
+  .project-info strong {
     font-size: 13px;
-    line-height: 1.05;
   }
 
-  .mobile-project-info span {
-    margin-top: 2px;
-
-    color: #777777;
-
+  .project-info span {
     font-size: 12px;
-    line-height: 1.05;
+  }
+
+}
+
+
+/* =========================
+   REDUCED MOTION
+   ========================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .carousel-track,
+  .project-image-stage img,
+  .ghost-project img {
+    transition: none;
   }
 
 }
