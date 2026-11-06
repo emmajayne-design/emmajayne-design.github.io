@@ -1,8 +1,5 @@
 /* =========================
    PROJECT CONTENT
-
-   This is the only area you need
-   to edit when changing projects.
    ========================= */
 
 const projects = [
@@ -123,39 +120,51 @@ const mobileProjectList =
    PROJECT CARD
    ========================= */
 
-function createProjectCard(project) {
+function createProjectCard(
+  project,
+  position
+) {
+  let responsiveClass = "";
+
+  if (position === 5) {
+    responsiveClass = "desktop-project-five";
+  }
+
+  if (position === 6) {
+    responsiveClass = "desktop-project-six";
+  }
+
   return `
     <a
-      class="project-card"
+      class="
+        project-card
+        ${responsiveClass}
+      "
       href="${project.link}"
     >
 
-      <div class="project-frame">
+      <div class="project-number">
+        [${project.number}]
+      </div>
 
-        <div class="project-number">
-          [${project.number}]
-        </div>
+      <div class="project-image-stage">
 
-        <div class="project-image-stage">
+        <img
+          src="${project.image}"
+          alt="${project.title}"
+        >
 
-          <img
-            src="${project.image}"
-            alt="${project.title}"
-          >
+      </div>
 
-        </div>
+      <div class="project-info">
 
-        <div class="project-info">
+        <strong>
+          ${project.title}
+        </strong>
 
-          <strong>
-            ${project.title}
-          </strong>
-
-          <span>
-            ${project.category} | ${project.year}
-          </span>
-
-        </div>
+        <span>
+          ${project.category} | ${project.year}
+        </span>
 
       </div>
 
@@ -165,10 +174,10 @@ function createProjectCard(project) {
 
 
 /* =========================
-   GHOST PROJECT TILE
+   FULL-SIZE GHOST PROJECT
    ========================= */
 
-function createGhostTile(
+function createGhostProject(
   project,
   direction
 ) {
@@ -178,25 +187,28 @@ function createGhostTile(
   const arrow =
     isNext ? "&gt;" : "&lt;";
 
+  const className =
+    isNext
+      ? "ghost-project-next"
+      : "ghost-project-previous";
+
   const label =
     isNext
       ? "Show projects 7 to 12"
       : "Return to projects 1 to 6";
 
-  const className =
-    isNext
-      ? "ghost-control-next"
-      : "ghost-control-previous";
-
   return `
     <button
-      class="ghost-control ${className}"
+      class="
+        ghost-project
+        ${className}
+      "
       type="button"
       aria-label="${label}"
     >
 
       <span
-        class="ghost-image"
+        class="ghost-project-image"
         aria-hidden="true"
       >
 
@@ -220,7 +232,7 @@ function createGhostTile(
 
 
 /* =========================
-   DESKTOP CAROUSEL
+   RENDER CAROUSEL
    ========================= */
 
 function renderCarousel() {
@@ -230,10 +242,12 @@ function renderCarousel() {
   const secondSet =
     projects.slice(6, 12);
 
+
   /*
-    First state:
-    Projects 1–6
-    Ghosted Project 7 on right.
+    PAGE ONE
+
+    Projects 1–6,
+    then a full Project 7 ghost.
   */
 
   const firstPage = `
@@ -244,23 +258,33 @@ function renderCarousel() {
       "
     >
 
-      ${firstSet
-        .map(createProjectCard)
-        .join("")}
+      <div class="project-row">
 
-      ${createGhostTile(
-        projects[6],
-        "next"
-      )}
+        ${firstSet
+          .map((project, index) => {
+            return createProjectCard(
+              project,
+              index + 1
+            );
+          })
+          .join("")}
+
+        ${createGhostProject(
+          projects[6],
+          "next"
+        )}
+
+      </div>
 
     </div>
   `;
 
 
   /*
-    Second state:
-    Ghosted Project 6 on left.
-    Projects 7–12.
+    PAGE TWO
+
+    Full Project 6 ghost,
+    then Projects 7–12.
   */
 
   const secondPage = `
@@ -271,17 +295,27 @@ function renderCarousel() {
       "
     >
 
-      ${createGhostTile(
-        projects[5],
-        "previous"
-      )}
+      <div class="project-row">
 
-      ${secondSet
-        .map(createProjectCard)
-        .join("")}
+        ${createGhostProject(
+          projects[5],
+          "previous"
+        )}
+
+        ${secondSet
+          .map((project, index) => {
+            return createProjectCard(
+              project,
+              index + 1
+            );
+          })
+          .join("")}
+
+      </div>
 
     </div>
   `;
+
 
   carouselTrack.innerHTML =
     firstPage + secondPage;
@@ -289,7 +323,7 @@ function renderCarousel() {
 
 
 /* =========================
-   MOBILE PROJECT LIST
+   MOBILE PROJECTS
    ========================= */
 
 function renderMobileProjects() {
@@ -344,7 +378,7 @@ function showPage(pageNumber) {
 
 
 /* =========================
-   CLICKS
+   CLICK CONTROLS
    ========================= */
 
 carousel.addEventListener(
@@ -352,12 +386,12 @@ carousel.addEventListener(
   function (event) {
     const nextControl =
       event.target.closest(
-        ".ghost-control-next"
+        ".ghost-project-next"
       );
 
     const previousControl =
       event.target.closest(
-        ".ghost-control-previous"
+        ".ghost-project-previous"
       );
 
     if (nextControl) {
@@ -372,7 +406,7 @@ carousel.addEventListener(
 
 
 /* =========================
-   KEYBOARD ARROWS
+   KEYBOARD CONTROLS
    ========================= */
 
 document.addEventListener(
