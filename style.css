@@ -44,12 +44,6 @@
 --type-footer: 11px;
 
 
-/* Featured projects = 27pt / 36px at exactly 1920px */
-
---type-section-title:
-  clamp(21px, 1.875vw, 36px);
-
-
   /* ---------- PAGE LAYOUT ---------- */
 
   --page-margin:
