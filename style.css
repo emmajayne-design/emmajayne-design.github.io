@@ -1,12 +1,11 @@
 /* =========================
    1920 × 1080 REFERENCE
 
-   Outer margin: 68px
-   Resting card: 280 × 420px
+   Margin: 68px
+   Card: 280 × 420px
    Gap: 21px
-   Hover card: 308 × 462px
-   Hover increase: exactly 10%
-   Ratio: exactly 2:3
+   Hover: 308 × 462px
+   Ratio: 2:3
    ========================= */
 
 :root {
@@ -29,19 +28,10 @@
   --hover-width: calc(var(--card-width) * 1.1);
   --hover-height: calc(var(--card-height) * 1.1);
 
-  --hover-horizontal-overlap:
-    calc(var(--card-width) * 0.05);
-
-  --hover-vertical-overlap:
-    calc(var(--card-height) * 0.05);
+  --horizontal-growth: calc(var(--card-width) * 0.05);
+  --vertical-growth: calc(var(--card-height) * 0.05);
 
   --ghost-visible: clamp(42px, 2.4vw, 48px);
-
-  --carousel-height:
-    calc(
-      var(--hover-height) +
-      82px
-    );
 }
 
 
@@ -59,7 +49,6 @@ html {
 
 body {
   margin: 0;
-
   overflow-x: hidden;
 
   background: #ffffff;
@@ -84,7 +73,6 @@ a {
   position: fixed;
   top: 0;
   left: 0;
-
   z-index: 100;
 
   width: 100%;
@@ -101,7 +89,6 @@ a {
 .identity {
   display: flex;
   align-items: center;
-
   gap: 14px;
 
   text-decoration: none;
@@ -152,6 +139,10 @@ a {
 
 /* =========================
    FEATURED SECTION
+
+   At 1080px tall:
+   title lands close to y=452
+   cards begin close to y=502
    ========================= */
 
 .featured-section {
@@ -161,7 +152,7 @@ a {
   flex-direction: column;
   justify-content: flex-end;
 
-  padding-bottom: clamp(55px, 7vh, 76px);
+  padding-bottom: clamp(70px, 14.63vh, 158px);
 }
 
 .section-title {
@@ -186,32 +177,35 @@ a {
   position: relative;
 
   width: 100%;
-  height: var(--carousel-height);
-
-  /*
-    Allows hovered cards to extend
-    upward and downward.
-  */
+  height: var(--card-height);
 
   overflow: visible;
 }
 
+
+/*
+  We use clip-path rather than
+  overflow:hidden.
+
+  This crops horizontally while
+  still allowing hover artwork,
+  index and metadata to extend
+  above and below the resting row.
+*/
+
 .carousel-viewport {
   position: absolute;
+  inset: 0;
 
-  /*
-    Extra vertical room for:
-    index + upward hover growth +
-    metadata below the image.
-  */
+  overflow: visible;
 
-  top: calc(var(--hover-vertical-overlap) * -1 - 30px);
-  left: 0;
-  right: 0;
-  bottom: -58px;
-
-  overflow-x: hidden;
-  overflow-y: visible;
+  clip-path:
+    inset(
+      -100px
+      0
+      -110px
+      0
+    );
 }
 
 .carousel-track {
@@ -234,7 +228,7 @@ a {
 
 
 /* =========================
-   EACH CAROUSEL PAGE
+   CAROUSEL PAGES
    ========================= */
 
 .carousel-page {
@@ -250,17 +244,12 @@ a {
 
 
 /* =========================
-   PROJECT ROW
+   PROJECT ROWS
    ========================= */
 
 .project-row {
   position: absolute;
-
-  top:
-    calc(
-      var(--hover-vertical-overlap) +
-      30px
-    );
+  top: 0;
 
   display: flex;
   align-items: flex-start;
@@ -276,10 +265,11 @@ a {
 /*
   PAGE ONE
 
-  Projects 1 to 6 begin at the
-  reference 68px margin.
+  Six cards start at the normal
+  page margin.
 
-  Full-size Project 7 follows.
+  Ghost Project 7 follows them
+  as a normal full-sized card.
 */
 
 .carousel-page-one .project-row {
@@ -290,21 +280,21 @@ a {
 /*
   PAGE TWO
 
-  Full Project 6 sits to the left.
-  Only the specified ghost amount
+  Project 6 is full-sized but starts
+  mostly outside the viewport.
+
+  Its rightmost ghost-visible section
   remains visible.
 
-  Project 7 then begins at the normal
-  page margin.
+  After the normal gap, Project 7
+  starts at the usual page margin.
 */
 
 .carousel-page-two .project-row {
   left:
     calc(
-      var(--page-margin) -
-      var(--card-width) -
-      var(--card-gap) +
-      var(--ghost-visible)
+      var(--ghost-visible) -
+      var(--card-width)
     );
 }
 
@@ -331,12 +321,11 @@ a {
 
 
 /* =========================
-   RESTING IMAGE
+   IMAGE
    ========================= */
 
 .project-image-stage {
   position: absolute;
-
   inset: 0;
 
   width: var(--card-width);
@@ -370,8 +359,8 @@ a {
 /* =========================
    HOVER
 
-   Expands 5% in every direction.
-   Neighbouring cards do not move.
+   Exactly 10% larger:
+   5% in every direction.
    ========================= */
 
 .project-card:hover,
@@ -386,24 +375,21 @@ a {
 
 
 /* =========================
-   INDEX NUMBER
+   PROJECT INDEX
 
-   Positioned against the enlarged
-   hover footprint.
+   Aligned to the maximum
+   hovered footprint.
    ========================= */
 
 .project-number {
   position: absolute;
 
-  left:
-    calc(
-      var(--hover-horizontal-overlap) * -1
-    );
+  left: calc(var(--horizontal-growth) * -1);
 
   bottom:
     calc(
       100% +
-      var(--hover-vertical-overlap) +
+      var(--vertical-growth) +
       8px
     );
 
@@ -425,24 +411,21 @@ a {
 
 
 /* =========================
-   PROJECT INFORMATION
+   PROJECT INFO
 
-   Positioned directly below the
-   enlarged hover footprint.
+   Aligned below the maximum
+   hovered footprint.
    ========================= */
 
 .project-info {
   position: absolute;
 
-  left:
-    calc(
-      var(--hover-horizontal-overlap) * -1
-    );
+  left: calc(var(--horizontal-growth) * -1);
 
   top:
     calc(
       100% +
-      var(--hover-vertical-overlap) +
+      var(--vertical-growth) +
       8px
     );
 
@@ -489,8 +472,8 @@ a {
 /* =========================
    GHOST PROJECT
 
-   Same dimensions as all other cards.
-   The viewport crops it.
+   This remains exactly the same
+   2:3 size as every other card.
    ========================= */
 
 .ghost-project {
@@ -536,9 +519,22 @@ a {
   opacity: 0.62;
 }
 
+
+/* =========================
+   GHOST ARROWS
+
+   Arrow is centred specifically
+   in the visible cropped slice,
+   not the full hidden card.
+   ========================= */
+
 .ghost-arrow {
   position: absolute;
-  inset: 0;
+
+  top: 0;
+  bottom: 0;
+
+  width: var(--ghost-visible);
 
   display: flex;
   align-items: center;
@@ -557,6 +553,26 @@ a {
   opacity: 1;
 }
 
+
+/*
+  On page one, the LEFT side of
+  Project 7 is visible.
+*/
+
+.next-button .ghost-arrow {
+  left: 0;
+}
+
+
+/*
+  On page two, the RIGHT side of
+  Project 6 is visible.
+*/
+
+.previous-button .ghost-arrow {
+  right: 0;
+}
+
 .ghost-project:focus-visible {
   outline: 2px solid #111111;
   outline-offset: -4px;
@@ -564,10 +580,8 @@ a {
 
 
 /* =========================
-   RESPONSIVE DESKTOP
-
-   Five cards before they become
-   too small.
+   MEDIUM DESKTOP
+   FIVE VISIBLE PROJECTS
    ========================= */
 
 @media (min-width: 1150px) and (max-width: 1399px) {
@@ -598,8 +612,7 @@ a {
 
 /* =========================
    SMALL DESKTOP
-
-   Four cards.
+   FOUR VISIBLE PROJECTS
    ========================= */
 
 @media (min-width: 901px) and (max-width: 1149px) {
@@ -642,6 +655,7 @@ a {
     padding: 18px;
 
     flex-direction: column;
+
     gap: 22px;
   }
 
@@ -671,7 +685,7 @@ a {
   }
 
 
-  /* SECTION */
+  /* FEATURED SECTION */
 
   .featured-section {
     min-height: 0;
@@ -698,13 +712,13 @@ a {
 
   .carousel {
     height: auto;
-    overflow: visible;
   }
 
   .carousel-viewport {
     position: relative;
-
     inset: auto;
+
+    clip-path: none;
 
     overflow: visible;
   }
@@ -725,8 +739,6 @@ a {
 
     width: 100%;
     height: auto;
-
-    overflow: visible;
   }
 
   .project-row,
@@ -740,11 +752,11 @@ a {
   }
 
 
-  /* ONLY DISPLAY EACH PROJECT ONCE */
-
-  .carousel-page-two {
-    display: none;
-  }
+  /*
+    Show both pages so all twelve
+    projects appear on mobile.
+    Hide duplicated ghost cards.
+  */
 
   .ghost-project {
     display: none;
