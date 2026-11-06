@@ -121,14 +121,17 @@ body {
 
 /* =========================
    INDEX
+
+   Width matches MAXIMUM
+   hovered image width.
    ========================= */
 
 .project-number {
-  width: 86%;
-  max-width: 230px;
+  width: 94.6%;
+  max-width: 253px;
   height: 18px;
 
-  margin-bottom: 6px;
+  margin: 0 auto 6px;
 
   font-size: 10px;
   line-height: 1;
@@ -141,7 +144,6 @@ body {
 }
 
 
-
 /* =========================
    IMAGE
    ========================= */
@@ -149,20 +151,21 @@ body {
 .project img {
   display: block;
 
-  /*
-     Bigger than before.
-     Image occupies 86% of its grid column.
-  */
-
   width: 86%;
   max-width: 230px;
 
   height: auto;
   aspect-ratio: 5 / 7;
 
+  margin-left: auto;
+  margin-right: auto;
+
   object-fit: cover;
 
   transform: scale(1);
+
+  /* GROW EQUALLY LEFT + RIGHT */
+  transform-origin: center center;
 
   transition: transform 180ms ease;
 }
@@ -170,14 +173,17 @@ body {
 
 /* =========================
    PROJECT INFORMATION
+
+   Width matches MAXIMUM
+   hovered image width.
    ========================= */
 
 .project-info {
-  width: 86%;
-  max-width: 230px;
+  width: 94.6%;
+  max-width: 253px;
   min-height: 32px;
 
-  margin-top: 6px;
+  margin: 6px auto 0;
 
   font-size: 10px;
   line-height: 1.2;
@@ -247,15 +253,19 @@ body {
     display: none;
   }
 
+  /* resting image */
+
   .project img {
     width: 84%;
     max-width: 210px;
   }
 
+  /* text = 10% larger hover footprint */
+
   .project-number,
   .project-info {
-    width: 86%;
-    max-width: 210px;
+    width: 92.4%;
+    max-width: 231px;
   }
 
 }
@@ -280,15 +290,19 @@ body {
     display: none;
   }
 
+  /* resting image */
+
   .project img {
     width: 82%;
     max-width: 195px;
   }
 
+  /* text = 10% larger hover footprint */
+
   .project-number,
   .project-info {
-    width: 84%;
-    max-width: 195px;
+    width: 90.2%;
+    max-width: 215px;
   }
 
 }
@@ -299,13 +313,12 @@ body {
    900px AND BELOW
    ================================================== */
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
 
   /* HEADER */
 
   .site-header {
     position: relative;
-
     padding: 18px;
   }
 
@@ -318,7 +331,6 @@ body {
 
   .work {
     min-height: 0;
-
     display: block;
 
     padding: 80px 18px 18px;
@@ -339,7 +351,7 @@ body {
   }
 
 
-  /* ALL 6 PROJECTS */
+  /* ALL PROJECTS */
 
   .project,
   .project-5,
@@ -364,7 +376,7 @@ body {
   }
 
 
-  /* STATIC FULL-WIDTH IMAGES */
+  /* STATIC FULL-WIDTH IMAGE */
 
   .project img,
   .project:hover img {
@@ -376,6 +388,8 @@ body {
     height: auto !important;
     aspect-ratio: auto;
 
+    margin: 0;
+
     object-fit: contain;
 
     transform: none !important;
@@ -383,7 +397,7 @@ body {
   }
 
 
-  /* TEXT ALWAYS VISIBLE */
+  /* INFORMATION ALWAYS VISIBLE */
 
   .project-info,
   .project:hover .project-info {
@@ -394,9 +408,11 @@ body {
 
     min-height: 0;
 
-    margin-top: 10px;
+    margin: 10px 0 0;
 
     font-size: 11px;
+
+    text-align: left;
 
     opacity: 1 !important;
     visibility: visible !important;
