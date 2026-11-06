@@ -27,21 +27,21 @@
   --colour-hover: #111111;
 
 
-  /* ---------- TYPE SIZES ---------- */
+ /* ---------- TYPE SIZES ---------- */
 
-  --type-header: 12px;
+--type-header: 14px;
 
-  --type-nav: 12px;
+--type-nav: 14px;
 
-  --type-section-title: 16px;
+--type-section-title: 18px;
 
-  --type-project-index: 11px;
+--type-project-index: 13px;
 
-  --type-project-title: 11px;
+--type-project-title: 13px;
 
-  --type-project-info: 10px;
+--type-project-info: 12px;
 
-  --type-footer: 10px;
+--type-footer: 11px;
 
 
   /* ---------- PAGE LAYOUT ---------- */
@@ -216,14 +216,13 @@ a {
 .identity-mark {
   display: block;
 
-  width: auto;
+  width: 40px;
   height: 40px;
 
-  max-width: 60px;
+  flex: 0 0 40px;
 
-  object-fit: contain;
-
-  flex-shrink: 0;
+  border-radius: 50%;
+  background: #686868;
 }
 
 
