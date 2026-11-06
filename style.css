@@ -84,10 +84,7 @@ body {
 
 
 /* =========================
-   FULL-WIDTH DESKTOP GALLERY
-
-   Six equal project columns
-   plus a narrow + column.
+   FULL WIDTH GALLERY
    ========================= */
 
 .project-gallery {
@@ -95,17 +92,17 @@ body {
   height: 460px;
 
   display: grid;
+
   grid-template-columns:
     repeat(6, minmax(0, 1fr))
     42px;
 
   align-items: center;
-  column-gap: 0;
 }
 
 
 /* =========================
-   PROJECT SLOT
+   PROJECT
    ========================= */
 
 .project {
@@ -127,7 +124,9 @@ body {
    ========================= */
 
 .project-number {
-  width: min(72%, 190px);
+  width: 88%;
+  max-width: 230px;
+
   height: 18px;
 
   margin-bottom: 6px;
@@ -148,7 +147,14 @@ body {
 .project img {
   display: block;
 
-  width: min(68%, 180px);
+  /*
+     Bigger than before.
+     Image occupies 86% of its grid column.
+  */
+
+  width: 86%;
+  max-width: 230px;
+
   height: auto;
   aspect-ratio: 5 / 7;
 
@@ -165,7 +171,9 @@ body {
    ========================= */
 
 .project-info {
-  width: min(72%, 190px);
+  width: 88%;
+  max-width: 230px;
+
   min-height: 32px;
 
   margin-top: 6px;
@@ -181,9 +189,6 @@ body {
 
 /* =========================
    DESKTOP HOVER
-
-   Exactly 10% larger.
-   Does not change the grid.
    ========================= */
 
 .project:hover {
@@ -223,10 +228,8 @@ body {
 
 /* ==================================================
    MEDIUM DESKTOP
-   1150px TO 1399px
-
-   Five projects plus +.
-   Gallery still fills full width.
+   1150px - 1399px
+   5 PROJECTS
    ================================================== */
 
 @media (min-width: 1150px) and (max-width: 1399px) {
@@ -242,7 +245,14 @@ body {
   }
 
   .project img {
-    width: min(66%, 165px);
+    width: 84%;
+    max-width: 210px;
+  }
+
+  .project-number,
+  .project-info {
+    width: 86%;
+    max-width: 210px;
   }
 
 }
@@ -250,10 +260,8 @@ body {
 
 /* ==================================================
    SMALL DESKTOP
-   901px TO 1149px
-
-   Four projects plus +.
-   Gallery still fills full width.
+   901px - 1149px
+   4 PROJECTS
    ================================================== */
 
 @media (min-width: 901px) and (max-width: 1149px) {
@@ -270,20 +278,22 @@ body {
   }
 
   .project img {
-    width: min(64%, 150px);
+    width: 82%;
+    max-width: 195px;
+  }
+
+  .project-number,
+  .project-info {
+    width: 84%;
+    max-width: 195px;
   }
 
 }
 
 
 /* ==================================================
-   MOBILE AND TABLET
+   MOBILE / TABLET
    900px AND BELOW
-
-   Vertical list.
-   All six projects.
-   No hover.
-   No index.
    ================================================== */
 
 @media (max-width: 900px) {
@@ -326,7 +336,7 @@ body {
   }
 
 
-  /* RETURN ALL SIX PROJECTS */
+  /* ALL 6 PROJECTS */
 
   .project,
   .project-5,
@@ -340,7 +350,7 @@ body {
   }
 
 
-  /* REMOVE INDEX */
+  /* NO INDEX */
 
   .project-number,
   .project:hover .project-number {
@@ -351,13 +361,15 @@ body {
   }
 
 
-  /* FULL-WIDTH STATIC IMAGES */
+  /* STATIC FULL-WIDTH IMAGES */
 
   .project img,
   .project:hover img {
     display: block;
 
     width: 100% !important;
+    max-width: none !important;
+
     height: auto !important;
     aspect-ratio: auto;
 
@@ -368,13 +380,15 @@ body {
   }
 
 
-  /* INFORMATION ALWAYS VISIBLE */
+  /* TEXT ALWAYS VISIBLE */
 
   .project-info,
   .project:hover .project-info {
     display: block !important;
 
     width: 100% !important;
+    max-width: none !important;
+
     min-height: 0;
 
     margin-top: 10px;
