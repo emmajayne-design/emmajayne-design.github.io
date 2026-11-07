@@ -313,19 +313,10 @@ a {
   min-height: 100svh;
 
   display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 
-  flex-direction:
-    column;
-
-  justify-content:
-    flex-end;
-
-  padding-bottom:
-    clamp(
-      55px,
-      8vh,
-      86px
-    );
+  padding-top: clamp(300px, 38vh, 420px);
 }
 
 
