@@ -317,7 +317,7 @@ a {
   flex-direction: column;
   justify-content: flex-start;
 
-  padding-top: clamp(180px, 38vh, 380px);
+  padding-top: clamp(180px, 32vh, 380px);
 }
 
 
