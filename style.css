@@ -361,7 +361,7 @@ a {
     calc(
       var(--card-height)
       + (2 * var(--vertical-growth))
-      + 70px
+      + 30px
     );
 
   overflow: visible;
