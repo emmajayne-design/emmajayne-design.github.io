@@ -132,22 +132,23 @@ html {
 body {
   margin: 0;
 
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
   overflow-x: hidden;
 
-  background:
-    var(--colour-background);
+  background: var(--colour-background);
+  color: var(--colour-text);
 
-  color:
-    var(--colour-text);
-
-  font-family:
-    var(--font-main);
-
-  font-weight:
-    var(--font-regular);
-
-  font-style: normal;
+  font-family: var(--font-main);
 }
+
+main {
+  flex: 1;
+}
+
 
 
 a {
