@@ -361,7 +361,7 @@ a {
     calc(
       var(--card-height)
       + (2 * var(--vertical-growth))
-      + 10px
+      + 30px
     );
 
   overflow: visible;
@@ -370,11 +370,9 @@ a {
 
 .carousel-viewport {
   position: absolute;
-
   inset: 0;
 
   overflow-x: hidden;
-
   overflow-y: visible;
 }
 
