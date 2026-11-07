@@ -311,13 +311,13 @@ a {
    ================================================== */
 
 .featured-section {
-  min-height: 100svh;
+  min-height: auto;
 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 
-  padding-top: clamp(180px, 36vh, 380px);
+  padding-top: clamp(260px, 34vh, 370px);
 }
 
 
