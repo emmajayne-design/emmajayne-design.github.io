@@ -1290,6 +1290,28 @@ and (
    PLAY LABEL
    ========================= */
 
+.project-bump {
+  position: relative;
+
+  grid-column:
+    2 / span 10;
+
+  width: 100%;
+}
+
+
+.project-bump video {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  background: #000000;
+}
+
+
+/* PLAY BUTTON */
+
 .project-bump-label {
   position: absolute;
 
@@ -1300,11 +1322,13 @@ and (
     translate(-50%, -50%);
 
   padding:
-    9px
-    12px;
+    10px
+    14px;
+
+  border: 0;
 
   background:
-    rgba(255, 255, 255, 0.9);
+    rgba(255, 255, 255, 0.92);
 
   color:
     var(--colour-text-dark);
@@ -1318,23 +1342,19 @@ and (
   font-weight:
     var(--font-bold);
 
-  line-height: 1;
+  cursor: pointer;
 
-  pointer-events: none;
+  z-index: 2;
 }
 
 
-.project-bump:hover
-.project-bump-label {
+.project-bump-label:hover {
   background: #ffffff;
 }
 
 
-/* Hide our label once the video starts */
-
-.project-bump:has(video:playing)
-.project-bump-label {
-  opacity: 0;
+.project-bump-label[hidden] {
+  display: none;
 }
 
 

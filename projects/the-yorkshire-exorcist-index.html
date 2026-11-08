@@ -21,7 +21,7 @@ next_image: images/covers/de-influencer-goeroe-cover.jpg
 <section class="project-intro">
 
    <h1 class="project-page-title">
-    04 / THE YORKSHIRE EXORCIST
+    [04] THE YORKSHIRE EXORCIST
   </h1>
 
   <p class="project-page-meta">
@@ -50,18 +50,53 @@ next_image: images/covers/de-influencer-goeroe-cover.jpg
   <video
     controls
     preload="metadata"
-    poster="/images/projects/the-yorkshire-exorcist-bump-cover.jpg"
   >
 
     <source
-      src="/videos/the-yorkshire-exorcist-s5-bump-compressed.mp4"
+      src= videos/the-yorkshire-exorcist-s5-bump-compressed.mp4
       type="video/mp4"
     >
 
   </video>
 
-  <div class="project-bump-label">
+
+  <button
+    class="project-bump-label"
+    type="button"
+    aria-label="Play The Yorkshire Exorcist bump"
+  >
     ▶ PLAY BUMP
-  </div>
+  </button>
 
 </section>
+
+
+<script>
+
+  const bumpVideo =
+    document.querySelector(".project-bump video");
+
+  const bumpButton =
+    document.querySelector(".project-bump-label");
+
+
+  bumpButton.addEventListener("click", function () {
+    bumpVideo.play();
+  });
+
+
+  bumpVideo.addEventListener("play", function () {
+    bumpButton.hidden = true;
+  });
+
+
+  bumpVideo.addEventListener("pause", function () {
+    bumpButton.hidden = false;
+  });
+
+
+  bumpVideo.addEventListener("ended", function () {
+    bumpButton.hidden = false;
+  });
+
+</script>
