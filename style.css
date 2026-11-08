@@ -1171,8 +1171,12 @@ and (
   opacity: 1;
 }
 
+
+
+
+
 /* ==================================================
-   PROJECT PAGE GRID
+   PROJECT PAGE
    ================================================== */
 
 .project-page {
@@ -1186,7 +1190,7 @@ and (
   column-gap:
     var(--card-gap);
 
-  row-gap: 30px;
+  row-gap: 40px;
 
   padding:
     120px
@@ -1195,9 +1199,9 @@ and (
 }
 
 
-/* =========================
+/* ==================================================
    PROJECT INTRO
-   ========================= */
+   ================================================== */
 
 .project-intro {
   grid-column:
@@ -1226,41 +1230,30 @@ and (
 
 .project-page-meta {
   margin:
-    3px
+    5px
     0
     0;
 
   color:
     var(--colour-text);
 
-  font-size:
-    var(--type-project-info);
-
-  line-height: 1.2;
-}
-
-
-.project-page-description {
-  max-width: 540px;
-
-  margin:
-    28px
-    0
-    0;
-
-  color:
-    var(--colour-text);
+  font-family:
+    var(--font-main);
 
   font-size:
     var(--type-project-info);
 
-  line-height: 1.25;
+  font-weight:
+    var(--font-regular);
+
+  line-height: 1.3;
 }
 
 
-/* =========================
-   PROJECT BUMP
-   ========================= */
+/* ==================================================
+   BUMP VIDEO
+   Same central 10-column width
+   ================================================== */
 
 .project-bump {
   position: relative;
@@ -1278,39 +1271,15 @@ and (
   width: 100%;
   height: auto;
 
-  border: 0;
+  aspect-ratio: 16 / 9;
 
-  background: #000000;
-
-  cursor: pointer;
-}
-
-
-/* =========================
-   PLAY LABEL
-   ========================= */
-
-.project-bump {
-  position: relative;
-
-  grid-column:
-    2 / span 10;
-
-  width: 100%;
-}
-
-
-.project-bump video {
-  display: block;
-
-  width: 100%;
-  height: auto;
+  object-fit: cover;
 
   background: #000000;
 }
 
 
-/* PLAY BUTTON */
+/* ---------- PLAY BUMP BUTTON ---------- */
 
 .project-bump-label {
   position: absolute;
@@ -1342,6 +1311,8 @@ and (
   font-weight:
     var(--font-bold);
 
+  line-height: 1;
+
   cursor: pointer;
 
   z-index: 2;
@@ -1359,40 +1330,10 @@ and (
 
 
 /* ==================================================
-   MOBILE PROJECT PAGE
-   ================================================== */
+   PROJECT DESCRIPTION
 
-@media (max-width: 767px) {
-
-  .project-page {
-    display: block;
-
-    padding:
-      50px
-      18px
-      60px;
-  }
-
-
-  .project-intro {
-    margin-bottom: 32px;
-  }
-
-
-  .project-page-description {
-    margin-top: 20px;
-  }
-
-
-  .project-bump {
-    width: 100%;
-  }
-
-}
-
-
-/* ==================================================
-   PROJECT DETAIL TEXT
+   Still lives inside the same
+   central 10-column area.
    ================================================== */
 
 .project-detail-text {
@@ -1407,9 +1348,10 @@ and (
   column-gap:
     var(--card-gap);
 
-  margin:
-    40px
-    0;
+  padding:
+    15px
+    0
+    25px;
 }
 
 
@@ -1436,7 +1378,15 @@ and (
 
 
 /* ==================================================
-   PROJECT IMAGE ROWS
+   PAIRED IMAGE ROWS
+
+   10-column central width.
+
+   Both images in a pair have matching
+   displayed heights.
+
+   Width comes from each image's
+   natural aspect ratio.
    ================================================== */
 
 .project-image-row {
@@ -1451,57 +1401,170 @@ and (
     var(--card-gap);
 
   width: 100%;
+
+  overflow: hidden;
 }
 
 
 /*
-  All source images are exported
-  at 1080px high.
+   The two images share the available
+   row width.
 
-  On the website they share one
-  displayed height, while their
-  widths follow their proportions.
+   object-fit: contain avoids cropping.
 */
 
 .project-image-row img {
   display: block;
 
-  width: auto;
-
-  /*
-    Responsive displayed height.
-    This is NOT the source image height.
-  */
+  min-width: 0;
+  width: 0;
 
   height:
     clamp(
-      260px,
-      28vw,
+      280px,
+      27vw,
       520px
     );
 
-  min-width: 0;
+  flex:
+    1 1 auto;
 
   object-fit: contain;
-
-  flex-grow: 1;
 }
 
 
 /* ==================================================
-   MOBILE PROJECT IMAGE ROWS
+   PROJECT NAVIGATION
+   ================================================== */
+
+.project-nav {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr
+    1fr;
+
+  align-items: start;
+
+  padding:
+    90px
+    var(--page-margin)
+    60px;
+}
+
+
+.project-nav a {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  color:
+    var(--colour-text);
+
+  font-family:
+    var(--font-main);
+
+  text-decoration: none;
+}
+
+
+.project-nav span {
+  color:
+    var(--colour-text-light);
+}
+
+
+.project-nav strong {
+  color:
+    var(--colour-text-dark);
+}
+
+
+.project-nav-all {
+  text-align: center;
+
+  align-items: center;
+}
+
+
+.project-nav-next {
+  text-align: right;
+
+  align-items: flex-end;
+}
+
+
+.project-nav img {
+  width: 220px;
+  height: auto;
+
+  aspect-ratio: 2 / 3;
+
+  object-fit: cover;
+
+  margin-top: 15px;
+
+  opacity: 0;
+
+  transition:
+    opacity
+    150ms
+    ease;
+}
+
+
+.project-nav a:hover img {
+  opacity: 1;
+}
+
+
+/* ==================================================
+   MOBILE PROJECT PAGE
    ================================================== */
 
 @media (max-width: 767px) {
+
+  .project-page {
+    display: block;
+
+    padding:
+      70px
+      18px
+      50px;
+  }
+
+
+  /* INTRO */
+
+  .project-intro {
+    width: 100%;
+
+    margin-bottom: 35px;
+  }
+
+
+  /* VIDEO */
+
+  .project-bump {
+    width: 100%;
+
+    margin-bottom: 35px;
+  }
+
+
+  /* TEXT */
 
   .project-detail-text {
     display: block;
 
     width: 100%;
 
-    margin:
-      35px
-      0;
+    padding:
+      0
+      0
+      35px;
   }
 
 
@@ -1510,10 +1573,14 @@ and (
   }
 
 
+  /* IMAGE PAIRS BECOME SINGLE IMAGES */
+
   .project-image-row {
     display: block;
 
     width: 100%;
+
+    overflow: visible;
   }
 
 
@@ -1524,6 +1591,49 @@ and (
     height: auto;
 
     margin-bottom: 18px;
+
+    object-fit: contain;
+  }
+
+
+  /* PROJECT NAV */
+
+  .project-nav {
+    grid-template-columns:
+      1fr
+      1fr;
+
+    gap:
+      45px
+      20px;
+
+    padding:
+      55px
+      18px;
+  }
+
+
+  .project-nav-all {
+    grid-column:
+      1 / -1;
+
+    text-align: left;
+
+    align-items: flex-start;
+  }
+
+
+  .project-nav-next {
+    text-align: right;
+
+    align-items: flex-end;
+  }
+
+
+  .project-nav img {
+    width: 100%;
+
+    opacity: 1;
   }
 
 }
