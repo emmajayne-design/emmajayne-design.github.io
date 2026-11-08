@@ -1390,46 +1390,21 @@ and (
    ================================================== */
 
 .project-image-row {
-  grid-column:
-    2 / span 10;
+  grid-column: 2 / span 10;
 
   display: flex;
-
-  align-items: stretch;
-
-  gap:
-    var(--card-gap);
+  gap: var(--card-gap);
 
   width: 100%;
-
-  overflow: hidden;
 }
-
-
-/*
-   The two images share the available
-   row width.
-
-   object-fit: contain avoids cropping.
-*/
 
 .project-image-row img {
   display: block;
 
-  min-width: 0;
-  width: 0;
+  width: auto;
+  height: auto;
 
-  height:
-    clamp(
-      280px,
-      27vw,
-      520px
-    );
-
-  flex:
-    1 1 auto;
-
-  object-fit: contain;
+  flex: none;
 }
 
 

@@ -151,3 +151,40 @@ next_image: https://picsum.photos/id/1015/800/1200
   });
 
 </script>
+
+
+
+<!-- =========================
+    AUTO FIT IMAGES
+     ========================= -->
+
+<script>
+
+  function fitImageRows() {
+
+    document.querySelectorAll(".project-image-row").forEach(row => {
+
+      const images = row.querySelectorAll("img");
+
+      if (images.length !== 2) return;
+
+      const gap = parseFloat(getComputedStyle(row).gap);
+
+      const ratio1 = images[0].naturalWidth / images[0].naturalHeight;
+      const ratio2 = images[1].naturalWidth / images[1].naturalHeight;
+
+      const height = (row.clientWidth - gap) / (ratio1 + ratio2);
+
+      images.forEach(image => {
+        image.style.height = height + "px";
+        image.style.width = "auto";
+      });
+
+    });
+
+  }
+
+  window.addEventListener("load", fitImageRows);
+  window.addEventListener("resize", fitImageRows);
+
+</script>
