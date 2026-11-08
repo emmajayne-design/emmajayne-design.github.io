@@ -161,7 +161,7 @@ a {
    ================================================== */
 
 .site-header {
-  position: fixed;
+  position: absolute;
 
   top: 0;
   left: 0;
@@ -1172,7 +1172,7 @@ and (
 }
 
 /* ==================================================
-   PROJECT PAGES
+   PROJECT PAGE GRID
    ================================================== */
 
 .project-page {
@@ -1186,7 +1186,7 @@ and (
   column-gap:
     var(--card-gap);
 
-  row-gap: 60px;
+  row-gap: 30px;
 
   padding:
     120px
@@ -1195,7 +1195,9 @@ and (
 }
 
 
-/* ---------- INTRO ---------- */
+/* =========================
+   PROJECT INTRO
+   ========================= */
 
 .project-intro {
   grid-column:
@@ -1203,13 +1205,68 @@ and (
 }
 
 
-/* ---------- VIDEO ---------- */
+.project-page-title {
+  margin: 0;
+
+  color:
+    var(--colour-text-dark);
+
+  font-family:
+    var(--font-main);
+
+  font-size:
+    var(--type-project-title);
+
+  font-weight:
+    var(--font-bold);
+
+  line-height: 1.1;
+}
+
+
+.project-page-meta {
+  margin:
+    3px
+    0
+    0;
+
+  color:
+    var(--colour-text);
+
+  font-size:
+    var(--type-project-info);
+
+  line-height: 1.2;
+}
+
+
+.project-page-description {
+  max-width: 540px;
+
+  margin:
+    28px
+    0
+    0;
+
+  color:
+    var(--colour-text);
+
+  font-size:
+    var(--type-project-info);
+
+  line-height: 1.25;
+}
+
+
+/* =========================
+   PROJECT BUMP
+   ========================= */
 
 .project-bump {
+  position: relative;
+
   grid-column:
     2 / span 10;
-
-  position: relative;
 
   width: 100%;
 }
@@ -1221,7 +1278,94 @@ and (
   width: 100%;
   height: auto;
 
-  cursor: pointer;
+  border: 0;
 
   background: #000000;
+
+  cursor: pointer;
+}
+
+
+/* =========================
+   PLAY LABEL
+   ========================= */
+
+.project-bump-label {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  padding:
+    9px
+    12px;
+
+  background:
+    rgba(255, 255, 255, 0.9);
+
+  color:
+    var(--colour-text-dark);
+
+  font-family:
+    var(--font-main);
+
+  font-size:
+    var(--type-project-info);
+
+  font-weight:
+    var(--font-bold);
+
+  line-height: 1;
+
+  pointer-events: none;
+}
+
+
+.project-bump:hover
+.project-bump-label {
+  background: #ffffff;
+}
+
+
+/* Hide our label once the video starts */
+
+.project-bump:has(video:playing)
+.project-bump-label {
+  opacity: 0;
+}
+
+
+/* ==================================================
+   MOBILE PROJECT PAGE
+   ================================================== */
+
+@media (max-width: 767px) {
+
+  .project-page {
+    display: block;
+
+    padding:
+      50px
+      18px
+      60px;
+  }
+
+
+  .project-intro {
+    margin-bottom: 32px;
+  }
+
+
+  .project-page-description {
+    margin-top: 20px;
+  }
+
+
+  .project-bump {
+    width: 100%;
+  }
+
 }
