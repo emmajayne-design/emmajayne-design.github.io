@@ -1,0 +1,24 @@
+<section class="project-bump">
+
+  <video
+    class="project-video"
+    controls
+    preload="metadata"
+    poster="{{ include.poster | relative_url }}"
+  >
+
+    <source
+      src="{{ include.video | relative_url }}"
+      type="video/mp4"
+    >
+
+  </video>
+
+  <button
+    class="project-bump-label"
+    type="button"
+  >
+    ▶ PLAY
+  </button>
+
+</section>
