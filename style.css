@@ -1389,3 +1389,141 @@ and (
   }
 
 }
+
+
+/* ==================================================
+   PROJECT DETAIL TEXT
+   ================================================== */
+
+.project-detail-text {
+  grid-column:
+    2 / span 10;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(10, minmax(0, 1fr));
+
+  column-gap:
+    var(--card-gap);
+
+  margin:
+    40px
+    0;
+}
+
+
+.project-detail-text p {
+  grid-column:
+    6 / span 5;
+
+  margin: 0;
+
+  color:
+    var(--colour-text);
+
+  font-family:
+    var(--font-main);
+
+  font-size:
+    var(--type-project-info);
+
+  font-weight:
+    var(--font-regular);
+
+  line-height: 1.35;
+}
+
+
+/* ==================================================
+   PROJECT IMAGE ROWS
+   ================================================== */
+
+.project-image-row {
+  grid-column:
+    2 / span 10;
+
+  display: flex;
+
+  align-items: stretch;
+
+  gap:
+    var(--card-gap);
+
+  width: 100%;
+}
+
+
+/*
+  All source images are exported
+  at 1080px high.
+
+  On the website they share one
+  displayed height, while their
+  widths follow their proportions.
+*/
+
+.project-image-row img {
+  display: block;
+
+  width: auto;
+
+  /*
+    Responsive displayed height.
+    This is NOT the source image height.
+  */
+
+  height:
+    clamp(
+      260px,
+      28vw,
+      520px
+    );
+
+  min-width: 0;
+
+  object-fit: contain;
+
+  flex-grow: 1;
+}
+
+
+/* ==================================================
+   MOBILE PROJECT IMAGE ROWS
+   ================================================== */
+
+@media (max-width: 767px) {
+
+  .project-detail-text {
+    display: block;
+
+    width: 100%;
+
+    margin:
+      35px
+      0;
+  }
+
+
+  .project-detail-text p {
+    width: 100%;
+  }
+
+
+  .project-image-row {
+    display: block;
+
+    width: 100%;
+  }
+
+
+  .project-image-row img {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    margin-bottom: 18px;
+  }
+
+}
