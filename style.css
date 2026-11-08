@@ -1170,3 +1170,58 @@ and (
 .project-nav a:hover img {
   opacity: 1;
 }
+
+/* ==================================================
+   PROJECT PAGES
+   ================================================== */
+
+.project-page {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(12, minmax(0, 1fr));
+
+  column-gap:
+    var(--card-gap);
+
+  row-gap: 60px;
+
+  padding:
+    120px
+    var(--page-margin)
+    60px;
+}
+
+
+/* ---------- INTRO ---------- */
+
+.project-intro {
+  grid-column:
+    2 / span 5;
+}
+
+
+/* ---------- VIDEO ---------- */
+
+.project-bump {
+  grid-column:
+    2 / span 10;
+
+  position: relative;
+
+  width: 100%;
+}
+
+
+.project-bump video {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  cursor: pointer;
+
+  background: #000000;
+}
