@@ -1190,7 +1190,7 @@ and (
   column-gap:
     var(--card-gap);
 
-  row-gap: 40px;
+  row-gap: 20px;
 
   padding:
     120px
@@ -1609,6 +1609,31 @@ and (
     width: 100%;
 
     opacity: 1;
+  }
+
+}
+
+
+/* =========================
+   MOBILE IMAGE ROWS
+   ========================= */
+
+@media (max-width: 767px) {
+
+  .project-image-row {
+    display: block;
+    width: 100%;
+  }
+
+  .project-image-row img {
+    display: block;
+
+    width: 100% !important;
+    height: auto !important;
+
+    margin-bottom: 18px;
+
+    object-fit: contain;
   }
 
 }
