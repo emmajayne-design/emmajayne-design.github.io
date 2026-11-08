@@ -1,0 +1,161 @@
+---
+layout: project
+title: The Yorkshire Exorcist
+
+previous_index: "12"
+previous_title: PROJECT TWELVE
+previous_url: /projects/project-twelve.html
+previous_image: https://picsum.photos/id/1011/800/1200
+
+next_index: "02"
+next_title: PROJECT TWO
+next_url: /projects/project-two.html
+next_image: https://picsum.photos/id/1015/800/1200
+---
+
+
+<!-- =========================
+     PROJECT INTRO
+     ========================= -->
+
+<section class="project-intro">
+
+  <h1 class="project-page-title">
+    [04] THE YORKSHIRE EXORCIST
+  </h1>
+
+  <p class="project-page-meta">
+    2023<br>
+    Discovery Inc.<br>
+    Key Art Design | Motion Graphics
+  </p>
+
+    <p class="project-page-description">
+    Key art creation for The Yorkshire Exorcist, blending show
+    photography with stock imagery to highlight both the talent
+    and the Yorkshire countryside, and adding motion for a spooky
+    tune-in bump.
+  </p>
+
+</section>
+
+
+<!-- =========================
+     BUMP VIDEO
+     ========================= -->
+
+<section class="project-bump">
+
+  <video
+    controls
+    preload="metadata"
+    poster="{{ '/images/projects/the-yorkshire-exorcist-bump-cover.jpg' | relative_url }}"
+  >
+
+    <source
+      src="{{ '/videos/the-yorkshire-exorcist-s5-bump-compressed.mp4' | relative_url }}"
+      type="video/mp4"
+    >
+
+  </video>
+
+
+  <button
+    class="project-bump-label"
+    type="button"
+    aria-label="Play The Yorkshire Exorcist bump"
+  >
+    ▶ PLAY BUMP
+  </button>
+
+</section>
+
+
+<!-- =========================
+     PROJECT DESCRIPTION
+     ========================= -->
+
+<section class="project-detail-text">
+
+  <p>
+    Key art creation for The Yorkshire Exorcist, blending show
+    photography with stock imagery to highlight both the talent
+    and the Yorkshire countryside, and added motion for a spooky
+    tune-in bump.
+  </p>
+
+</section>
+
+
+<!-- =========================
+     IMAGE ROW 01
+     ========================= -->
+
+<div class="project-image-row">
+
+  <img
+    src="{{ '/images/projects/the-yorkshire-exorcist-image-01.jpg' | relative_url }}"
+    alt="The Yorkshire Exorcist key art"
+  >
+
+  <img
+    src="{{ '/images/projects/the-yorkshire-exorcist-image-02.jpg' | relative_url }}"
+    alt="The Yorkshire Exorcist social artwork"
+  >
+
+</div>
+
+
+<!-- =========================
+     IMAGE ROW 02
+     ========================= -->
+
+<div class="project-image-row">
+
+  <img
+    src="{{ '/images/projects/the-yorkshire-exorcist-image-03.jpg' | relative_url }}"
+    alt="The Yorkshire Exorcist portrait artwork"
+  >
+
+  <img
+    src="{{ '/images/projects/the-yorkshire-exorcist-image-04.jpg' | relative_url }}"
+    alt="The Yorkshire Exorcist digital artwork"
+  >
+
+</div>
+
+
+
+<!-- =========================
+     VIDEO CONTROLS
+     ========================= -->
+
+<script>
+
+  const bumpVideo =
+    document.querySelector(".project-bump video");
+
+  const bumpButton =
+    document.querySelector(".project-bump-label");
+
+
+  bumpButton.addEventListener("click", function () {
+    bumpVideo.play();
+  });
+
+
+  bumpVideo.addEventListener("play", function () {
+    bumpButton.hidden = true;
+  });
+
+
+  bumpVideo.addEventListener("pause", function () {
+    bumpButton.hidden = false;
+  });
+
+
+  bumpVideo.addEventListener("ended", function () {
+    bumpButton.hidden = false;
+  });
+
+</script>

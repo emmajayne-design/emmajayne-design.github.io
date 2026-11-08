@@ -1605,10 +1605,8 @@ and (
   }
 
 
-  .project-nav img {
-    width: 100%;
-
-    opacity: 1;
+   .project-nav img {
+    display: none;
   }
 
 }
