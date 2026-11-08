@@ -1377,6 +1377,25 @@ and (
 }
 
 
+/* =========================
+   FULL-WIDTH PROJECT IMAGE
+   ========================= */
+
+.project-full-image {
+  grid-column: 2 / span 10;
+
+  width: 100%;
+}
+
+.project-full-image img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+}
+
+
+
 /* ==================================================
    PAIRED IMAGE ROWS
 
